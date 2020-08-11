@@ -1,0 +1,9 @@
+{
+  "title": "个人博客 --开发环境",
+  "db": {
+    "user": "cxc",
+    "host": "localhost",
+    "port": "27017",
+    "name": "alibaixiu"
+  }
+}
