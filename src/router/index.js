@@ -11,16 +11,16 @@ export default new VueRouter({
   }, {
     path: '/login',
     name: 'login',
-    component: () => import('../components/Login')
+    component: () => import('@/views/Login')
   },
   {
     path: '/home',
     name: 'home',
-    component: () => import('../components/Home')
+    component: () => import('@/views/Home')
   }, {
     path: '/admin',
     name: 'adminHome',
-    component: () => import('../components/AdminHome'),
+    component: () => import('@/views/AdminHome'),
     meta: {
       requiresAuth: true
     }

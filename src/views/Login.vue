@@ -8,8 +8,8 @@
       <!--登录表单区域-->
       <el-form :model="loginForm" :rules="loginFormRules" ref="loginFormRef" class="loginForm">
         <!--用户名-->
-        <el-form-item prop="username">
-          <el-input placeholder="请输入用户名" v-model="loginForm.email" prefix-icon="iconfont icon-denglu"></el-input>
+        <el-form-item prop="username" >
+          <el-input placeholder="请输入用户名" autofocus v-model="loginForm.email" prefix-icon="iconfont icon-denglu"></el-input>
         </el-form-item>
         <!--密码-->
         <el-form-item prop="password">
@@ -39,7 +39,7 @@ export default {
     return {
       // 登录表单
       loginForm: {
-        email: '111@qq.com',
+        email: '111@qq.com', // 设置默认账号
         password: '111'
       },
       // 表单验证规则
