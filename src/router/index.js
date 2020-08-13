@@ -58,5 +58,13 @@ export default new VueRouter({
     meta: {
       requiresAuth: true
     }
+  }, {
+    path: '/401',
+    name: '401',
+    component: () => import('@/views/error-page/401')
+  }, {
+    path: '*',
+    name: 'NotFound',
+    component: () => import('@/views/error-page/404')
   }]
 })
