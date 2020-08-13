@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "721658",
+      "name": "文章",
+      "font_class": "ai-article",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "725731",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
       "icon_id": "1120971",
       "name": "密码",
       "font_class": "mima",
@@ -13,11 +27,60 @@
       "unicode_decimal": 58913
     },
     {
+      "icon_id": "1799463",
+      "name": "仪表盘",
+      "font_class": "panel",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "5330148",
+      "name": "评论组",
+      "font_class": "pinglunzu",
+      "unicode": "e765",
+      "unicode_decimal": 59237
+    },
+    {
+      "icon_id": "5543849",
+      "name": "设置",
+      "font_class": "shezhi",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    },
+    {
+      "icon_id": "6237086",
+      "name": "评论",
+      "font_class": "tubiaozhizuo-",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "6246304",
+      "name": "用户",
+      "font_class": "yonghu1",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
       "icon_id": "7090030",
       "name": "登录",
       "font_class": "denglu",
       "unicode": "e70a",
       "unicode_decimal": 59146
+    },
+    {
+      "icon_id": "10262050",
+      "name": "设 置",
+      "font_class": "shezhi1",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "11177991",
+      "name": "仪表盘",
+      "font_class": "ziyuan",
+      "unicode": "e642",
+      "unicode_decimal": 58946
     }
   ]
 }

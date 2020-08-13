@@ -9,14 +9,14 @@
       <el-form :model="loginForm" :rules="loginFormRules" ref="loginFormRef" class="loginForm">
         <!--用户名-->
         <el-form-item prop="username" >
-          <el-input placeholder="请输入用户名" autofocus v-model="loginForm.email" prefix-icon="iconfont icon-denglu"></el-input>
+          <el-input placeholder="请输入用户名" autofocus v-model.trim="loginForm.email" prefix-icon="iconfont icon-denglu"></el-input>
         </el-form-item>
         <!--密码-->
         <el-form-item prop="password">
           <el-input
             placeholder="请输入密码"
             prefix-icon="iconfont icon-mima"
-            v-model="loginForm.password"
+            v-model.trim="loginForm.password"
             show-password
             @change="toLogin"
           >

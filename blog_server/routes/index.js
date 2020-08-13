@@ -1,7 +1,7 @@
 // 路由集合
 module.exports = app => {
-  app.use('/admin/*', require('./loginG'))
-
+  // 管理员身份验证
+  app.use('/admin/validate', require('./loginG'))
   // 用户二级路由
   app.use('/users', require('./user'))
   // 分类

@@ -18,20 +18,36 @@ axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem('token')
   return config
 })
-
-// 定义全局守卫
+// 定义全局路由拦截守卫
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(value => value.meta.requiresAuth)) {
-    if (!sessionStorage.getItem('token')) {
-      next({
-        name: 'login'
-      })
-    } else {
+  axios.post('/admin/validate', {}).then(res => {
+    // 普通路由 如果普通用户登录 存储用户信息
+    if (res.data.status === 0) {
+      console.log(res.data.user)
+      window.sessionStorage.setItem('user', res.data.user)
       next()
     }
-  } else {
-    next()
-  }
+    // 拦截需要权限的路由(管理员才能访问的路由)
+    if (to.matched.some(value => value.meta.requiresAuth)) {
+      // 如果没登陆 跳转到登录页
+      if (!sessionStorage.getItem('token')) {
+        next({
+          name: 'login'
+        })
+      } else { // 如果已登录 判断角色权限
+        // 如果是普通角色 跳转到普通用户首页
+        if (res.data.status === 0) {
+          next({
+            name: '401'
+          })
+        } else { // 如果是管理员 保存数据到store中
+          console.log(res.data)
+          window.sessionStorage.setItem('user', res.data)
+        }
+        next()
+      }
+    } else next()
+  }).catch(err => err)
 })
 
 Vue.config.productionTip = false

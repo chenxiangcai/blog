@@ -39,7 +39,7 @@
           url: '/login',
           data: { email,password },
           success: function (response) {
-            location.href = 'index.html';
+
             if(response.role == 'admin') location.href = '/admin/index.html';
             else location.href = '/index.html';
           },
