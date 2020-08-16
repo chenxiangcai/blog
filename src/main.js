@@ -3,9 +3,11 @@ import App from './App.vue'
 import router from './router'
 import axios from 'axios'
 import './plugins/element.js'
+import store from './store'
 
 // 导入全样式
 import './assets/css/global.css'
+
 // 导入自定义字体图标样式
 import './assets/fonts/iconfont.css'
 
@@ -41,7 +43,6 @@ router.beforeEach((to, from, next) => {
             name: '401'
           })
         } else { // 如果是管理员 保存数据到store中
-          console.log(res.data)
           window.sessionStorage.setItem('user', res.data)
         }
         next()
@@ -53,5 +54,6 @@ router.beforeEach((to, from, next) => {
 Vue.config.productionTip = false
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

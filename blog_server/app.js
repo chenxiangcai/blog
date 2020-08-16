@@ -1,15 +1,15 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-/*const session = require('express-session')*/
+/* const session = require('express-session') */
 const formidable = require('express-formidable')
 require('./model/connect')
 app.use(express.static(path.join(__dirname, 'public')))
-/*app.use(session({
+/* app.use(session({
   secret: 'secret key',
   resave: false,
   saveUninitialized: false
-}))*/
+})) */
 
 // 设置跨域和相应数据格式
 app.all('/*', function (req, res, next) {

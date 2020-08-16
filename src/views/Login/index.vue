@@ -3,7 +3,7 @@
     <div class="loginBox">
       <!--登录图片区域-->
       <div class="loginImg">
-        <img src="../assets/images/logo.jpg" alt="">
+        <img src="@/assets/images/logo.jpg" alt="">
       </div>
       <!--登录表单区域-->
       <el-form :model="loginForm" :rules="loginFormRules" ref="loginFormRef" class="loginForm">
