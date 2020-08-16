@@ -25,8 +25,7 @@ router.beforeEach((to, from, next) => {
   axios.post('/admin/validate', {}).then(res => {
     // 普通路由 如果普通用户登录 存储用户信息
     if (res.data.status === 0) {
-      console.log(res.data.user)
-      window.sessionStorage.setItem('user', res.data.user)
+      store.commit('LOGIN', res.data)
       next()
     }
     // 拦截需要权限的路由(管理员才能访问的路由)
@@ -37,13 +36,16 @@ router.beforeEach((to, from, next) => {
           name: 'login'
         })
       } else { // 如果已登录 判断角色权限
-        // 如果是普通角色 跳转到普通用户首页
+        // 如果是普通角色 跳转到401页面
         if (res.data.status === 0) {
+          store.commit('LOGIN', res.data)
           next({
             name: '401'
           })
-        } else { // 如果是管理员 保存数据到store中
-          window.sessionStorage.setItem('user', res.data)
+        } else {
+          // 如果是管理员 保存数据到store中
+          console.log(res.data)
+          store.commit('LOGIN', res.data)
         }
         next()
       }

@@ -39,7 +39,7 @@
               <i class="el-icon-menu"></i>
               <span>所有文章</span>
             </el-menu-item>
-            <el-menu-item index="new-article" @click="saveNavState('all-articles')">
+            <el-menu-item index="new-article" @click="saveNavState('new-article')">
               <i class="el-icon-menu"></i>
               <span>写文章</span>
             </el-menu-item>
@@ -108,6 +108,7 @@
 </template>
 
 <script>
+import { removeStore, getStore, setStore } from '@/utils/storage'
 export default {
   name: 'AdminHome',
   data () {
@@ -119,7 +120,8 @@ export default {
   },
   created () {
     this.getCatList()
-    this.activePath = window.sessionStorage.getItem('activePath')
+    this.activePath = getStore('activePath')
+    // this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods: {
     // 获取数据
@@ -128,7 +130,8 @@ export default {
     },
     // 保存当前导航栏状态
     saveNavState (path) {
-      window.sessionStorage.setItem('activePath', path)
+      setStore('activePath', path)
+      // window.sessionStorage.setItem('activePath', path)
       this.activePath = path
     },
     // 侧边栏图标切换
@@ -137,7 +140,9 @@ export default {
     },
     // 登出
     logout () {
-      window.sessionStorage.clear()
+      removeStore('token')
+      removeStore('activePath')
+      // window.sessionStorage.clear()
       this.$router.push({ name: 'login' })
     },
     // 点击头像返回首页

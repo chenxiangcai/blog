@@ -33,6 +33,8 @@
 </template>
 
 <script>
+// 导入自定义工具
+import { setStore } from '@/utils/storage'
 export default {
   name: 'Login',
   data () {
@@ -57,9 +59,8 @@ export default {
         const { data: res } = await this.$http.post('/login', this.loginForm)
         if (res.meta.status !== 200) return this.$message.error(res.meta.message)
         this.$message.success('登录成功')
-        console.log(res)
         // token保存在sessionStorage中
-        window.sessionStorage.setItem('token', res.token)
+        setStore('token', res.token) // window.sessionStorage.setItem('token', res.token)
         this.$router.push(res.path)
       })
     },

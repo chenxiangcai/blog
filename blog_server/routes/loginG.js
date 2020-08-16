@@ -1,7 +1,7 @@
 const { User } = require('../model/User')
 const jwt = require('jsonwebtoken')
 const { secret } = require('../config/key')
-
+const _ = require('lodash')
 module.exports = async (req, res) => {
   const token = req.headers.authorization
   jwt.verify(token, secret, async function (err, decode) {
@@ -12,7 +12,6 @@ module.exports = async (req, res) => {
       })
     } else {
       // 证明用户已经登录
-      console.log(decode)
       const { email } = decode
       const user = await User.findOne({ email })
       if (user.role !== 'admin') {
@@ -22,7 +21,8 @@ module.exports = async (req, res) => {
           user
         })
       }
-      res.send(user)
+      const userInfo = _.pick(user, ['nickName', 'email', 'role', 'avatar', '_id', 'status', 'createTime'])
+      res.send(userInfo)
     }
   })
   /* console.log(req.headers.authorization)
