@@ -4,6 +4,7 @@
     <el-aside :width="isCollapse? '64px':'200px'">
       <!--头像区域-->
       <div @click="backToAdmin">
+        <!--<img :src="userInfo.avatar" alt="">-->
         <el-avatar
           :class="isCollapse? 'small':'big'"
           src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png">
@@ -109,6 +110,7 @@
 
 <script>
 import { removeStore, getStore, setStore } from '@/utils/storage'
+import { mapState } from 'vuex'
 export default {
   name: 'AdminHome',
   data () {
@@ -117,6 +119,9 @@ export default {
       activePath: '',
       isCollapse: false
     }
+  },
+  computed: {
+    ...mapState(['userInfo'])
   },
   created () {
     this.getCatList()
