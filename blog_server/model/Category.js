@@ -23,7 +23,7 @@ const Category = mongoose.model('Category', CategorySchema);
 // 文章分类格式校验（路由级别）
 const validateCategory = category => {
     const schema = {
-        title: Joi.string().min(2).max(30).required().error(new Error('分类名称不符合验证验证规则')),
+        title: Joi.string().min(2).max(30).required().error(new Error('请输入2位以上的分类名称')),
         createAt: Joi.date().default(Date.now, 'created time'),
         className: Joi.string().required().error(new Error('请填写分类图标类名')),
     };

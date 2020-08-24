@@ -22,10 +22,10 @@ export default new VueRouter({
     name: 'home',
     component: () => import('@/views/Home')
   }, {
-    path: '/admin',
+    path: '/',
     name: 'adminHome',
     redirect: { name: 'welcome' },
-    component: () => import('@/views/Admin/AdminHome'),
+    component: () => import('@/views/Admin'),
     children: [{
       path: 'welcome',
       name: 'welcome',
@@ -37,27 +37,27 @@ export default new VueRouter({
     }, {
       path: 'all-articles',
       name: 'allArticles',
-      component: () => import('@/views/Admin/AllArticles')
+      component: () => import('@/views/Admin/Article/List')
     }, {
-      path: 'new-article',
-      name: 'newArticle',
-      component: () => import('@/views/Admin/NewArticle')
+      path: 'add-article',
+      name: 'addArticle',
+      component: () => import('@/views/Admin/Article/Add')
     }, {
       path: 'article-category',
       name: 'articleCategory',
-      component: () => import('@/views/Admin/ArticleCategory')
+      component: () => import('@/views/Admin/Article/Category')
     }, {
       path: 'comments',
       name: 'comments',
-      component: () => import('@/views/Admin/Comments')
+      component: () => import('@/views/Admin/Comment')
     }, {
       path: 'users',
       name: 'users',
-      component: () => import('@/views/Admin/Users')
+      component: () => import('@/views/Admin/User')
     }, {
       path: 'options',
       name: 'options',
-      component: () => import('@/views/Admin/Options')
+      component: () => import('@/views/Admin/Option')
     }],
     meta: {
       requiresAuth: true

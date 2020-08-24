@@ -16,7 +16,20 @@ import {
   MenuItem,
   Submenu,
   Row,
-  Col
+  Col,
+  Breadcrumb,
+  BreadcrumbItem,
+  Table,
+  TableColumn,
+  Tag,
+  Pagination,
+  Select,
+  Option,
+  Dialog,
+  Upload,
+  DatePicker,
+  MessageBox,
+  Loading
 } from 'element-ui'
 
 Vue.use(Button)
@@ -35,4 +48,17 @@ Vue.use(Menu)
 Vue.use(Submenu)
 Vue.use(Row)
 Vue.use(Col)
+Vue.use(Breadcrumb)
+Vue.use(BreadcrumbItem)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Tag)
+Vue.use(Pagination)
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(Dialog)
+Vue.use(Upload)
+Vue.use(DatePicker)
+Vue.use(Loading)
 Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox.confirm

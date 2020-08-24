@@ -5,11 +5,18 @@ import axios from 'axios'
 import './plugins/element.js'
 import store from './store'
 
+// 导入编辑控件样式
+import 'quill/dist/quill.core.css' // import styles
+import 'quill/dist/quill.snow.css' // for snow theme
+import 'quill/dist/quill.bubble.css' // for bubble theme
+
 // 导入全样式
 import './assets/css/global.css'
-
 // 导入自定义字体图标样式
 import './assets/fonts/iconfont.css'
+// 导入编辑控件
+import VueQuillEditor from 'vue-quill-editor'
+Vue.use(VueQuillEditor)
 
 // 挂载axios全局对象
 Vue.prototype.$http = axios
@@ -20,6 +27,19 @@ axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem('token')
   return config
 })
+
+// 时间过滤器
+Vue.filter('dateFormat', dateTime => {
+  const dt = new Date(dateTime)
+  const y = dt.getFullYear()
+  const m = (dt.getMonth() + 1 + '').padStart(2, '0')
+  const d = (dt.getDate() + '').padStart(2, '0')
+  const hh = (dt.getHours() + '').padStart(2, '0')
+  const mm = (dt.getMinutes() + '').padStart(2, '0')
+  const ss = (dt.getSeconds() + '').padStart(2, '0')
+  return `${y}-${m}-${d}   ${hh}:${mm}:${ss}`
+})
+
 // 定义全局路由拦截守卫
 router.beforeEach((to, from, next) => {
   axios.post('/admin/validate', {}).then(res => {
@@ -44,7 +64,6 @@ router.beforeEach((to, from, next) => {
           })
         } else {
           // 如果是管理员 保存数据到store中
-          console.log(res.data)
           store.commit('LOGIN', res.data)
         }
         next()

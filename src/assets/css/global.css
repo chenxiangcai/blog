@@ -4,6 +4,21 @@ html,body,#app{
     padding: 0;
     min-width: 1366px;
 }
+.el-breadcrumb{
+    margin-bottom: 15px;
+}
 .el-card{
     box-shadow: 0 1px 1px rgba(0,0,0,.15)!important;
+}
+.el-table{
+    margin-top: 20px;
+}
+.el-pagination{
+    margin-top: 25px;
+}
+.margin-left7{
+    margin-left: 7px;
+}
+.ql-container{
+    min-height:300px
 }

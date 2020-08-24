@@ -12,6 +12,7 @@
       </div>
       <!--功能列表区域-->
         <el-menu
+          @select="handleSelect"
           :default-active= "activePath"
           background-color="#F0F2F1"
           text-color="#000"
@@ -40,7 +41,7 @@
               <i class="el-icon-menu"></i>
               <span>所有文章</span>
             </el-menu-item>
-            <el-menu-item index="new-article" @click="saveNavState('new-article')">
+            <el-menu-item index="add-article" @click="saveNavState('add-article')">
               <i class="el-icon-menu"></i>
               <span>写文章</span>
             </el-menu-item>
@@ -110,7 +111,7 @@
 
 <script>
 import { removeStore, getStore, setStore } from '@/utils/storage'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'AdminHome',
   data () {
@@ -118,6 +119,14 @@ export default {
       menuList: [],
       activePath: '',
       isCollapse: false
+    }
+  },
+  watch: {
+    // 监听路由变化  解决左侧导航栏activePath不实时更新问题
+    $route (to, from) {
+      this.handleSelect(to.path.substring(1))
+      // 路由刷新 对编辑新增表单重置为空
+      if (from.path.substring(1) === 'add-article') this.clearForm()
     }
   },
   computed: {
@@ -129,6 +138,10 @@ export default {
     // this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods: {
+    ...mapMutations(['CLEARFORM']),
+    handleSelect (index) {
+      this.activePath = index
+    },
     // 获取数据
     async getCatList () {
 
@@ -153,6 +166,10 @@ export default {
     // 点击头像返回首页
     backToAdmin () {
       this.$router.push({ name: 'adminHome' })
+    },
+    // 清除store数据
+    clearForm () {
+      this.CLEARFORM()
     }
   }
 }

@@ -5,15 +5,20 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userInfo: {}
+    userInfo: {},
+    editForm: {}
   },
   mutations: {
     LOGIN (state, userInfo) {
       state.userInfo = userInfo
+    },
+    EDITFORM (state, editForm) {
+      state.editForm = editForm
+    },
+    CLEARFORM (state) {
+      state.editForm = ''
     }
   },
-  actions: {
-  },
-  modules: {
-  }
+  actions: {},
+  modules: {}
 })
