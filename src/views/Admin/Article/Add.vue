@@ -24,7 +24,7 @@
             </template>
             <el-upload
               :limit="this.limit"
-              :action="this.upURL"
+              :action="upURL"
               list-type="picture-card"
               :on-preview="handlePictureCardPreview"
               :on-success="handleAvatarSuccess"
@@ -113,7 +113,7 @@ import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'NewArticle',
   computed: {
-    ...mapState(['userInfo', 'editForm'])
+    ...mapState(['userInfo', 'editForm', 'upURL'])
   },
   data () {
     return {
@@ -133,7 +133,6 @@ export default {
         createAt: ''
       },
       imageUrl: 'http://localhost',
-      upURL: '',
       addOrEditFormRules: {
         title: [
           { required: true, message: '请输入文章标题', trigger: 'blur' },
@@ -170,8 +169,6 @@ export default {
     }
   },
   mounted () {
-    // 设置图片上传地址
-    this.upURL = 'http://localhost/upload'
     this.getCateList()
     // 判断是新增页面还是编辑页面
     if (Object.keys(this.editForm).length !== 0) {
