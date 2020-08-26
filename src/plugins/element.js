@@ -29,7 +29,9 @@ import {
   Upload,
   DatePicker,
   MessageBox,
-  Loading
+  Loading,
+  Radio,
+  Image
 } from 'element-ui'
 
 Vue.use(Button)
@@ -60,5 +62,7 @@ Vue.use(Dialog)
 Vue.use(Upload)
 Vue.use(DatePicker)
 Vue.use(Loading)
+Vue.use(Radio)
+Vue.use(Image)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

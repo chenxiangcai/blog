@@ -16,9 +16,9 @@
           <el-form-item label="文章封面">
             <template>
               <img
-                v-if="this.editForm"
+                v-show="this.showImg"
                 :src="this.imageUrl + this.editForm.cover"
-                alt="这张照片被外星人拐走了"
+                alt="这张照片被外星人拐走了..."
                 class="img"
               >
             </template>
@@ -117,6 +117,7 @@ export default {
   },
   data () {
     return {
+      showImg: false,
       breadCrumbList: [{
         breOne: '首页',
         breTwo: '文章',
@@ -173,8 +174,9 @@ export default {
     this.upURL = 'http://localhost/upload'
     this.getCateList()
     // 判断是新增页面还是编辑页面
-    if (this.editForm !== '') {
+    if (Object.keys(this.editForm).length !== 0) {
       this.addOrEditForm = this.editForm
+      this.showImg = true
       // 设置下拉框回填值
       this.editFormCate = this.editForm.category._id
       this.editFormState = this.editForm.state
@@ -193,6 +195,7 @@ export default {
       /* this.imageUrl = 'http://localhost' */
       this.imageUrl = this.imageUrl + file[0].file
       this.addOrEditForm.cover = file[0].file
+      this.showImg = false
     },
     handleRemove () {
       this.addOrEditForm.cover = ''

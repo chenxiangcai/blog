@@ -6,7 +6,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     userInfo: {},
-    editForm: {}
+    editForm: {},
+    host: 'http://localhost',
+    upURL: 'http://localhost/upload'
   },
   mutations: {
     LOGIN (state, userInfo) {
