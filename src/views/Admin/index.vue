@@ -80,7 +80,7 @@
             </template>
             <el-menu-item index="options" @click="saveNavState('options')">
               <i class="el-icon-menu"></i>
-              <span>设置</span>
+              <span>网站设置</span>
             </el-menu-item>
           </el-submenu>
         </el-menu>

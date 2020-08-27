@@ -31,7 +31,8 @@ import {
   MessageBox,
   Loading,
   Radio,
-  Image
+  Image,
+  Checkbox
 } from 'element-ui'
 
 Vue.use(Button)
@@ -64,5 +65,6 @@ Vue.use(DatePicker)
 Vue.use(Loading)
 Vue.use(Radio)
 Vue.use(Image)
+Vue.use(Checkbox)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
