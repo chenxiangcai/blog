@@ -34,7 +34,8 @@ import {
   Image,
   Checkbox,
   Divider,
-  Popover
+  Popover,
+  Switch
 } from 'element-ui'
 
 Vue.use(Button)
@@ -70,5 +71,6 @@ Vue.use(Image)
 Vue.use(Checkbox)
 Vue.use(Divider)
 Vue.use(Popover)
+Vue.use(Switch)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

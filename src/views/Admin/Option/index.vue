@@ -20,12 +20,12 @@
         <el-input v-model="optForm.title" style="width: 20%"></el-input>
       </el-form-item>
       <el-form-item label="评论" prop="comment">
-        <el-row>
-          <el-checkbox v-model="optForm.comment" label="开启评论功能" ></el-checkbox>
-        </el-row>
-        <el-row>
-          <el-checkbox v-model="optForm.review" label="评论是否需审核"  ></el-checkbox>
-        </el-row>
+        <el-form-item label="评论功能">
+          <el-switch v-model="optForm.comment"></el-switch>
+        </el-form-item>
+        <el-form-item label="评论审核">
+          <el-switch v-model="optForm.review"></el-switch>
+        </el-form-item>
         <el-button type="primary" style="margin-top: 20px" @click="upOpt">设置</el-button>
       </el-form-item>
     </el-form>

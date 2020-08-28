@@ -11,6 +11,7 @@
           <ul class="avatarPopover">
             <li @click="AboutMe">账号资料</li>
             <li @click="pwdDialogVisible = true">修改密码</li>
+            <li @click="logout">退出登录</li>
           </ul>
           <div class="avatar" slot="reference">
             <el-avatar
@@ -124,13 +125,15 @@
       <el-header>
         <el-row :gutter="10">
           <el-col :span="1">
-            <span @click="toggleIcon">
+            <div @click="toggleIcon">
               <i class="el-icon-s-fold"></i>
-            </span>
+            </div>
           </el-col>
-          <el-col :span="22"><span class="headerTitle" @click="backToAdmin">个人博客</span></el-col>
-          <el-col :span="1" >
-            <el-button type="info" @click="logout">退出</el-button>
+          <el-col :span="17"><div class="headerTitle" @click="backToAdmin">个人博客</div></el-col>
+          <el-col :span="6" >
+            <el-col>
+              <div v-text="currentTime" class="time"></div>
+            </el-col>
           </el-col>
         </el-row>
       </el-header>
@@ -145,6 +148,7 @@
 <script>
 import { removeStore, getStore, setStore } from '@/utils/storage'
 import { mapState, mapMutations } from 'vuex'
+import moment from 'moment'
 export default {
   name: 'AdminHome',
   data () {
@@ -182,12 +186,14 @@ export default {
           { validator: validatePass, trigger: 'blur' }
         ],
         newPwd: [
-          { validator: validatePass, trigger: 'blur' }
+          { validator: validatePass, trigger: 'blur' },
+          { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
         ],
         confirmPwd: [
           { validator: validatePass2, trigger: 'change' }
         ]
-      }
+      },
+      currentTime: moment().format('YYYY年MM月DD日 星期E kk:mm:ss')
     }
   },
   watch: {
@@ -203,6 +209,7 @@ export default {
   },
   created () {
     this.activePath = getStore('activePath')
+    this.getTime()
     // this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods: {
@@ -227,7 +234,7 @@ export default {
       // window.sessionStorage.clear()
       this.$router.push({ name: 'login' })
     },
-    // 点击头像返回首页
+    // 点击博客返回首页
     backToAdmin () {
       this.$router.push({ name: 'adminHome' })
     },
@@ -252,18 +259,36 @@ export default {
         this.$message.success(res.message)
         this.logout()
       })
+    },
+    getTime () {
+      setInterval(() => {
+        this.currentTime = moment().format('YYYY年MM月DD日 星期E kk:mm:ss')
+      }, 1000)
     }
   }
 }
 </script>
+data () {
+return {
 
+}
+},
+created () {
+this.getTime()
+},
+methods: {
+getTime () {
+setInterval(() => {
+this.currentTime = moment().format('YYYY年MM月DD日 星期E kk:mm:ss')
+}, 1000)
+}
+}
 <style lang="less" scoped>
 .el-container{
   height: 100%;
   .el-aside{
     height: 100%;
     background-color: #F0F2F1;
-
   }
   .el-header{
     height: 50px!important;
@@ -275,6 +300,9 @@ export default {
       font-size: 25px;
       color: #fff;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      height: 50px;
     }
   }
   .big{
@@ -296,6 +324,8 @@ export default {
   }
   .el-icon-s-fold{
     font-size:37px;
+    height: 50px;
+    line-height: 50px;
   }
   .el-row{
     width: 100%;
@@ -324,5 +354,13 @@ a{
 }
 .el-popover{
   text-align: center!important;
+}
+.time{
+  font-family: "等线 Light";
+  font-size: 25px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  float: right;
 }
 </style>
