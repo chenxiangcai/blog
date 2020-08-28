@@ -3,13 +3,46 @@
 <!--    侧边栏-->
     <el-aside :width="isCollapse? '64px':'200px'">
       <!--头像区域-->
-      <div @click="backToAdmin">
-        <!--<img :src="userInfo.avatar" alt="">-->
-        <el-avatar
-          :class="isCollapse? 'small':'big'"
-          src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png">
-        </el-avatar>
-      </div>
+        <el-popover
+          placement="right"
+          width="150"
+          trigger="hover"
+          >
+          <ul class="avatarPopover">
+            <li @click="AboutMe">账号资料</li>
+            <li @click="pwdDialogVisible = true">修改密码</li>
+          </ul>
+          <div class="avatar" slot="reference">
+            <el-avatar
+              :class="isCollapse? 'small':'big'"
+              :src="host + userInfo.avatar" >
+            </el-avatar>
+            <p style="text-align: center" :class="isCollapse?'none':''">{{userInfo.nickName}}</p>
+          </div>
+        </el-popover>
+      <!--修改密码弹出框-->
+      <el-dialog
+        title="密码修改"
+        :visible.sync="pwdDialogVisible"
+        width="30%"
+        @close="resetPwdForm"
+        >
+        <el-form :model="pwdForm" status-icon :rules="pwdRules" ref="pwdForm" label-width="70px">
+          <el-form-item label="旧密码" prop="lastPwd">
+            <el-input type="password" v-model="pwdForm.lastPwd" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="新密码" prop="newPwd">
+            <el-input type="password" v-model="pwdForm.newPwd" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="confirmPwd">
+            <el-input type="password" v-model="pwdForm.confirmPwd" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+    <el-button @click="pwdDialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="upToChangePwd">确 定</el-button>
+  </span>
+      </el-dialog>
       <!--功能列表区域-->
         <el-menu
           @select="handleSelect"
@@ -95,7 +128,7 @@
               <i class="el-icon-s-fold"></i>
             </span>
           </el-col>
-          <el-col :span="22"><span class="headerTitle">个人博客</span></el-col>
+          <el-col :span="22"><span class="headerTitle" @click="backToAdmin">个人博客</span></el-col>
           <el-col :span="1" >
             <el-button type="info" @click="logout">退出</el-button>
           </el-col>
@@ -115,10 +148,46 @@ import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'AdminHome',
   data () {
+    var validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'))
+      } else {
+        if (this.pwdForm.confirmPwd !== '') {
+          this.$refs.pwdForm.validateField('confirmPwd')
+        }
+        callback()
+      }
+    }
+    var validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'))
+      } else if (value !== this.pwdForm.newPwd) {
+        callback(new Error('两次输入密码不一致!'))
+      } else {
+        callback()
+      }
+    }
     return {
       menuList: [],
       activePath: '',
-      isCollapse: false
+      isCollapse: false,
+      pwdDialogVisible: false,
+      pwdForm: {
+        newPwd: '',
+        confirmPwd: '',
+        lastPwd: ''
+      },
+      pwdRules: {
+        lastPwd: [
+          { validator: validatePass, trigger: 'blur' }
+        ],
+        newPwd: [
+          { validator: validatePass, trigger: 'blur' }
+        ],
+        confirmPwd: [
+          { validator: validatePass2, trigger: 'change' }
+        ]
+      }
     }
   },
   watch: {
@@ -130,10 +199,9 @@ export default {
     }
   },
   computed: {
-    ...mapState(['userInfo'])
+    ...mapState(['userInfo', 'host'])
   },
   created () {
-    this.getCatList()
     this.activePath = getStore('activePath')
     // this.activePath = window.sessionStorage.getItem('activePath')
   },
@@ -141,10 +209,6 @@ export default {
     ...mapMutations(['CLEARFORM']),
     handleSelect (index) {
       this.activePath = index
-    },
-    // 获取数据
-    async getCatList () {
-
     },
     // 保存当前导航栏状态
     saveNavState (path) {
@@ -170,6 +234,24 @@ export default {
     // 清除store数据
     clearForm () {
       this.CLEARFORM()
+    },
+    // hover 弹出框路由跳转
+    AboutMe () {
+      this.$router.push({
+        name: 'users'
+      })
+    },
+    resetPwdForm () {
+      this.$refs.pwdForm.resetFields()
+    },
+    upToChangePwd () {
+      this.$refs.pwdForm.validate(async v => {
+        if (!v) return
+        const { data: res } = await this.$http.put('/users/password', this.pwdForm)
+        if (res.message !== '密码修改成功') return this.$message.error(res.message)
+        this.$message.success(res.message)
+        this.logout()
+      })
     }
   }
 }
@@ -191,7 +273,8 @@ export default {
     padding-left: 10px!important;
     .headerTitle{
       font-size: 25px;
-      color: #fff
+      color: #fff;
+      cursor: pointer;
     }
   }
   .big{
@@ -221,5 +304,25 @@ export default {
     border-right: 0;
   }
 }
-
+.none{
+  display: none;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+.avatarPopover li{
+  text-align: center;
+  list-style: none;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.avatarPopover li:hover{
+  background-color: #ddd;
+}
+.el-popover{
+  text-align: center!important;
+}
 </style>

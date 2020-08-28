@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="main">
-    <div class="words">{{words}} by {{from}}</div>
+    <div class="words">{{words}} By {{from}}</div>
   </div>
   <div class="list">
     <ul>
@@ -69,7 +69,7 @@ export default {
   width: 500px;
   height: 163px;
   ul{
-    margin-left: -40px;
+    margin-top: 17px;
     }
   .title{
     font-size: 16px;
