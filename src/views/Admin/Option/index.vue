@@ -73,9 +73,9 @@ export default {
   methods: {
     async getOption () {
       const { data: res } = await this.$http.get('/settings')
-      if (!res[0]._id) return this.$message.error('获取网站设置信息失败')
-      this.optForm = res[0]
-      if (this.fileList.length === 0) { this.fileList.push({ url: `${this.host}` + res[0].logo }) }
+      if (!res._id) return this.$message.error('获取网站设置信息失败')
+      this.optForm = res
+      if (this.fileList.length === 0) { this.fileList.push({ url: `${this.host}` + res.logo }) }
     },
     handleAvatarSuccess (file) {
       this.fileList.shift()

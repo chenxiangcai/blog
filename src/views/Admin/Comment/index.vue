@@ -205,7 +205,7 @@ export default {
       const { data: res } = await this.$http.put(`/comments/${_id}`, { state })
       if (res.nModified !== 1) return this.$message.error('评论审核失败')
       this.$message.success('更改评论状态成功')
-      await this.getComments()
+      await this.filtrate()
     }
   }
 }

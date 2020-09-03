@@ -4,6 +4,8 @@ import router from './router'
 import axios from 'axios'
 import './plugins/element.js'
 import store from './store'
+import VueLazyload from 'vue-lazyload'
+import moment from 'moment'
 
 // 导入编辑控件样式
 import 'quill/dist/quill.core.css' // import styles
@@ -16,6 +18,13 @@ import './assets/css/global.css'
 import './assets/fonts/iconfont.css'
 // 导入编辑控件
 import VueQuillEditor from 'vue-quill-editor'
+Vue.use(VueLazyload)
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  error: '../../assets/images/error.png',
+  loading: '../../assets/images/load.gif',
+  attempt: 1
+})
 Vue.use(VueQuillEditor)
 
 // 挂载axios全局对象
@@ -27,6 +36,10 @@ axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem('token')
   return config
 })
+
+// 配置挂载时间格式化工具
+moment.locale('zh-cn')
+Vue.prototype.$moment = moment
 
 // 时间过滤器
 Vue.filter('dateFormat', dateTime => {

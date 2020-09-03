@@ -13,8 +13,8 @@
           <a style="color:#20a0ff" href="https://wallstreetcn.com" target="_blank">wallstreetcn</a>
         </div>-->
         <div class="bullshit__headline">管理大大说你不能进入此页面...</div>
-        <div class="bullshit__info">请检查输入的网址是否正确，或者点击返回按钮回到主页.</div>
-        <a href="http://localhost:8080/welcome" class="bullshit__return-home">回到主页</a>
+        <div class="bullshit__info">请检查输入的网址是否正确，或者点击返回按钮回到首页.</div>
+        <a href="http://localhost:8080/home" class="bullshit__return-home">回到首页</a>
       </div>
     </div>
   </div>

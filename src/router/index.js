@@ -7,6 +7,10 @@ const originalReplace = VueRouter.prototype.replace
 VueRouter.prototype.replace = function replace (location) {
   return originalReplace.call(this, location).catch(err => err)
 }
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 export default new VueRouter({
   mode: 'history',
   routes: [{
@@ -20,7 +24,31 @@ export default new VueRouter({
   {
     path: '/home',
     name: 'home',
-    component: () => import('@/views/Home')
+    component: () => import('@/views/frontHome'), // 挂载导航栏公共样式
+    redirect: { name: 'Home' }, // 跳转到子路由文章首页
+    children: [
+      {
+        path: '',
+        name: 'Home',
+        component: () => import('@/views/frontHome/Home')
+      },
+      {
+        path: 'allPosts',
+        name: 'allPosts',
+        component: () => import('@/views/frontHome/AllPosts')
+      }, {
+        path: 'category',
+        name: 'category',
+        component: () => import('@/views/frontHome/Category')
+      }, {
+        path: 'details',
+        name: 'details',
+        component: () => import('@/views/frontHome/Details')
+      }, {
+        path: 'search',
+        name: 'searchPost',
+        component: () => import('@/views/frontHome/Home/search')
+      }]
   }, {
     path: '/',
     name: 'adminHome',

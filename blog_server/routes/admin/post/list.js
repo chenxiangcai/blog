@@ -23,6 +23,6 @@ module.exports = async (req, res) => {
   if (req.query.state == '-1') req.query.state = undefined
   if (req.query.category != undefined) condition.category = req.query.category
   if (req.query.state != undefined) condition.state = req.query.state
-  const data = await pagination(Post).page(page).size(pagesize).find(condition).populate('author', '-password').populate('category').select('-content -meta').exec()
+  const data = await pagination(Post).page(page).size(pagesize).find(condition).populate('author', '-password').populate('category').exec()
   res.send({ data, meta: { status: 200, message: '查询成功' } })
 }

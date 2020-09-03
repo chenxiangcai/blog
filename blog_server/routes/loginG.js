@@ -15,10 +15,11 @@ module.exports = async (req, res) => {
       const { email } = decode
       const user = await User.findOne({ email })
       if (user.role !== 'admin') {
+        const userInfo = _.pick(user, ['nickName', 'email', 'role', 'avatar', '_id', 'status', 'createTime'])
         return res.send({
           status: 0,
           msg: '普通用户',
-          user
+          userInfo
         })
       }
       const userInfo = _.pick(user, ['nickName', 'email', 'role', 'avatar', '_id', 'status', 'createTime'])

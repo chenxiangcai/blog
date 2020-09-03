@@ -35,6 +35,7 @@
 <script>
 // 导入自定义工具
 import { setStore } from '@/utils/storage'
+import { mapMutations } from 'vuex'
 export default {
   name: 'Login',
   data () {
@@ -47,11 +48,12 @@ export default {
       // 表单验证规则
       loginFormRules: {
         nickName: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入用户名', trigger: 'blur' }]
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
       }
     }
   },
   methods: {
+    ...mapMutations(['LOGIN']),
     // 预验证与登录
     toLogin () {
       this.$refs.loginFormRef.validate(async v => {
@@ -59,7 +61,9 @@ export default {
         const { data: res } = await this.$http.post('/login', this.loginForm)
         if (res.meta.status !== 200) return this.$message.error(res.meta.message)
         this.$message.success('登录成功')
-        // token保存在sessionStorage中
+        // token保存在sessionStorage 和vuex中
+        this.LOGIN(res.userInfo)
+        setStore('user', res.userInfo.nickName)
         setStore('token', res.token) // window.sessionStorage.setItem('token', res.token)
         this.$router.push(res.path)
       })
@@ -72,7 +76,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .loginContainer {
   width: 100%;
   height: 100%;

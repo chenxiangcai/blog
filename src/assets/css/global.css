@@ -9,6 +9,13 @@ fieldset,input,textarea,p,blockquote,th,td {
     margin:0;
     padding:0;
 }
+li{
+  list-style: none;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
 .el-breadcrumb{
     margin-bottom: 15px;
 }
@@ -26,4 +33,49 @@ fieldset,input,textarea,p,blockquote,th,td {
 }
 .ql-container{
     min-height:300px
+}
+
+.el-container{
+    background-color: #F5F6F7;
+}
+
+/*
+enter-active 定义进入过渡的结束状态
+leave-active 定义离开过渡的结束状态
+ */
+.fade-transform-leave-active,
+.fade-transform-enter-active {
+    transition: all 0.5s;
+}
+
+/*
+enter定义进入过渡的开始状态
+ */
+.fade-transform-enter {
+    opacity: 0;
+    transform: translateX(-30px);
+}
+/*
+leave-to离场动画结束后的状态
+ */
+.fade-transform-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.popoverList li{
+    text-align: center;
+    cursor:pointer;
+    background-color: #4CA1AF;
+    padding: 7px;
+    border-radius: 7px;
+    margin: 5px;
+    color: #fff;
+}
+.popoverList li:hover{
+    background-color: #ccc;
+}
+.hot {
+    display: flex;
+    flex-wrap: wrap;
 }

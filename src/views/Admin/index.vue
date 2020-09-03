@@ -146,7 +146,7 @@
 </template>
 
 <script>
-import { removeStore, getStore, setStore } from '@/utils/storage'
+import { getStore, setStore } from '@/utils/storage'
 import { mapState, mapMutations } from 'vuex'
 import moment from 'moment'
 export default {
@@ -229,9 +229,7 @@ export default {
     },
     // 登出
     logout () {
-      removeStore('token')
-      removeStore('activePath')
-      // window.sessionStorage.clear()
+      window.sessionStorage.clear()
       this.$router.push({ name: 'login' })
     },
     // 点击博客返回首页
@@ -268,21 +266,6 @@ export default {
   }
 }
 </script>
-data () {
-return {
-
-}
-},
-created () {
-this.getTime()
-},
-methods: {
-getTime () {
-setInterval(() => {
-this.currentTime = moment().format('YYYY年MM月DD日 星期E kk:mm:ss')
-}, 1000)
-}
-}
 <style lang="less" scoped>
 .el-container{
   height: 100%;
