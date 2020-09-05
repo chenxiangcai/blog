@@ -50,6 +50,10 @@ export default new VueRouter({
         component: () => import('@/views/frontHome/Home/search')
       }]
   }, {
+    path: '/personalCenter',
+    name: 'personalCenter',
+    component: () => import('@/views/frontHome/User')
+  }, {
     path: '/',
     name: 'adminHome',
     redirect: { name: 'welcome' },

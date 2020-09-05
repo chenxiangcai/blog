@@ -246,8 +246,8 @@ export default {
     async editArticle (row) {
       const id = row._id
       const { data: res } = await this.$http.get(`/posts/${id}`)
-      if (!res.meta) return this.$message.error('数据获取失败')
-      this.EDITFORM(res)
+      if (!res.post) return this.$message.error('数据获取失败')
+      this.EDITFORM(res.post)
       setStore('activePath', 'add-article')
       this.$router.push({ name: 'addArticle', query: { id } })
     },

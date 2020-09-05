@@ -16,7 +16,7 @@
           <el-form-item label="文章封面">
             <template>
               <img
-                v-show="this.showImg"
+                v-if="this.showImg"
                 :src="this.imageUrl + this.editForm.cover"
                 alt="这张照片被外星人拐走了..."
                 class="img"

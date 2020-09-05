@@ -4,8 +4,7 @@
     <!--头部导航栏-->
     <el-header>
       <el-menu
-        class="w-box"
-        style="margin: 0 auto"
+        style="margin: 0 auto;width: 1700px"
         :default-active="activeIndex"
         mode="horizontal"
         background-color=" #4CA1AF"
@@ -33,13 +32,15 @@
           trigger="hover"
           >
           <ul class="popoverList">
-            <li>个人中心</li>
+            <li @click="personalCenter">个人中心</li>
             <li @click="logout">退出登录</li>
           </ul>
         </el-popover>
       </el-menu>
     </el-header>
+    <!--主体区域-->
     <div class="container">
+      <!--侧边栏-->
       <div :class="{aside:true,fix:showFlag,ds:displayFlag}" >
        <div style="padding-left: 60%">
          <div class="profile-info" v-if="userInfo.userInfo">
@@ -100,6 +101,7 @@
          </div>
        </div>
       </div>
+      <!--内容主体-->
       <div class="main"  style="float: right">
         <div style="margin-right: 200px">
           <transition name="fade-transform" mode="out-in" >
@@ -108,17 +110,20 @@
         </div>
       </div>
     </div>
-    <div class="footer">
-      footer
-    </div>
+    <!--页脚-->
+    <Copyrights></Copyrights>
   </el-container>
   </div>
 </template>
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { setStore, getStore } from '@/utils/storage'
+import Copyrights from '@/common/Copyrights'
 export default {
   name: 'Home',
+  components: {
+    Copyrights
+  },
   data () {
     return {
       activeIndex: '',
@@ -219,13 +224,22 @@ export default {
       } else {
         this.showFlag = false
       }
+    },
+    help () {
+      this.$notify({
+        title: '离线帮助',
+        message: '自渡',
+        type: 'warning'
+      })
+    },
+    personalCenter () {
+      this.$router.push({ name: 'personalCenter', query: { id: this.userInfo._id } })
     }
   }
 }
 </script>
 
 <style lang="less"  scoped>
-
 .container{
   .ds{
     display: none!important;
@@ -244,9 +258,6 @@ export default {
     margin-top: 70px;
     padding: 7px;
     width: 70%;
-  }
-  .footer{
-    width: 100%;
   }
 }
 .w-box{
