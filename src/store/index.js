@@ -17,6 +17,11 @@ export default new Vuex.Store({
       state.userInfo = userInfo
       state.login = true
     },
+    USERINFO (state, userInfo) {
+      state.userInfo.userInfo.nickName = userInfo.nickName
+      state.userInfo.userInfo.email = userInfo.email
+      state.userInfo.userInfo.avatar = userInfo.avatar
+    },
     EDITFORM (state, editForm) {
       state.editForm = editForm
     },

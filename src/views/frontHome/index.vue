@@ -4,7 +4,7 @@
     <!--头部导航栏-->
     <el-header>
       <el-menu
-        style="margin: 0 auto;width: 1700px"
+        style="margin: 0 auto;width: 1200px"
         :default-active="activeIndex"
         mode="horizontal"
         background-color=" #4CA1AF"
@@ -15,15 +15,17 @@
         <el-menu-item>
           <img :src="host + settings.logo" alt="" style="width: 60px;height: 58px;" @click="toHome">
         </el-menu-item>
-        <el-menu-item index="/home" style="margin-left: 3%" @click="toHome">首页</el-menu-item>
+        <el-menu-item index="/home"  @click="toHome">首页</el-menu-item>
         <el-menu-item index="/home/allPosts" @click="toAllPosts">所有文章</el-menu-item>
           <el-submenu index="2" >
             <template v-slot:title style="float: right" >文章分类</template>
             <el-menu-item :index="'2-'+i" v-for="(item,i) in cateList" :key="item._id" @click="toCate(item._id)">{{item.title}}</el-menu-item>
           </el-submenu>
         <template>
-          <el-menu-item v-show="!login" index="/login" style="float: right" @click="toLogin">登录</el-menu-item>
-          <el-menu-item v-if="login" v-popover:popover  style="float: right;">欢迎您: {{userInfo.userInfo.nickName}}</el-menu-item>
+          <div style="margin-left: 112%">
+            <el-menu-item v-show="!login" index="/login" style="float: right" @click="toLogin">登录</el-menu-item>
+            <el-menu-item v-if="login" v-popover:popover  style="float: right;">欢迎您: {{userInfo.userInfo.nickName}}</el-menu-item>
+          </div>
         </template>
         <el-popover
           ref="popover"
@@ -225,13 +227,6 @@ export default {
         this.showFlag = false
       }
     },
-    help () {
-      this.$notify({
-        title: '离线帮助',
-        message: '自渡',
-        type: 'warning'
-      })
-    },
     personalCenter () {
       this.$router.push({ name: 'personalCenter', query: { id: this.userInfo._id } })
     }
@@ -269,19 +264,7 @@ export default {
   top: -430px;
   z-index: 998;
 }
-.el-header{
-  position: fixed;
-  width: 100%;
-  z-index: 999;
-}
 .aside{
-  /*position: fixed;
-  min-height: 1000px;
-  width: 300px;
-  margin-left: 13%;
-  margin-top: 70px;
-  padding: 7px;
-  padding-top: 17px;*/
   .profile-info{
     width: 268px;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
@@ -349,6 +332,12 @@ export default {
       }
     }
   }
+}
+.el-header{
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  background-color: #4CA1AF;
 }
 .el-container{
   height: 100%;

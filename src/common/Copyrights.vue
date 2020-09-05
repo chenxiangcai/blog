@@ -68,7 +68,16 @@
 
 <script>
 export default {
-  name: 'Copyrights'
+  name: 'Copyrights',
+  methods: {
+    help () {
+      this.$notify({
+        title: '离线帮助',
+        message: '自渡',
+        type: 'warning'
+      })
+    }
+  }
 }
 </script>
 

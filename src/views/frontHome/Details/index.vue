@@ -110,7 +110,6 @@ export default {
       const { data: res } = await this.$http.get(`/posts/${this.$route.query.id}`)
       this.detailList = res.post
       this.commentList = res.comment
-      console.log(res)
     },
     showMoreHeight () {
       this.showFlag = true

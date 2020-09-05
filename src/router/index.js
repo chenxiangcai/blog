@@ -52,7 +52,17 @@ export default new VueRouter({
   }, {
     path: '/personalCenter',
     name: 'personalCenter',
-    component: () => import('@/views/frontHome/User')
+    component: () => import('@/views/frontHome/User'),
+    redirect: { name: 'center' },
+    children: [{
+      path: '',
+      name: 'center',
+      component: () => import('@/views/frontHome/User/Detail')
+    }, {
+      path: 'editpwd',
+      name: 'editpwd',
+      component: () => import('@/views/frontHome/User/EditPwd')
+    }]
   }, {
     path: '/',
     name: 'adminHome',
