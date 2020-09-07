@@ -1,33 +1,33 @@
 <template>
-  <el-card>
-    <el-form :model="personalForm" :rules="personalFormRules" ref="personalForm" >
-      <el-form-item label="头像">
-        <el-row>
-          <el-col :span="12">
-            <el-upload
-            :limit="this.limit"
-            :action="upURL"
-            list-type="picture-card"
-            :on-success="handleAvatarSuccess"
-            :on-remove="handleRemove"
-            :file-list="fileList"
-          >
-            <i class="el-icon-plus"></i>
-          </el-upload>
-          </el-col>
-          <el-col :span="10">
-            <el-form-item label="邮箱" prop="email">
-              <el-input v-model="personalForm.email"></el-input>
-            </el-form-item>
-            <el-form-item label="昵称" prop="nickName" style="margin-top: 7px">
-              <el-input v-model="personalForm.nickName"></el-input>
-            </el-form-item>
-            <el-button class="editP" type="primary" @click="upUserInfo">修改</el-button>
-          </el-col>
-        </el-row>
-      </el-form-item>
-    </el-form>
-  </el-card>
+    <el-card style="margin-bottom: 90px">
+      <el-form :model="personalForm" :rules="personalFormRules" ref="personalForm" >
+        <el-form-item label="头像">
+          <el-row>
+            <el-col :span="12">
+              <el-upload
+                :limit="this.limit"
+                :action="upURL"
+                list-type="picture-card"
+                :on-success="handleAvatarSuccess"
+                :on-remove="handleRemove"
+                :file-list="fileList"
+              >
+                <i class="el-icon-plus"></i>
+              </el-upload>
+            </el-col>
+            <el-col :span="10">
+              <el-form-item label="邮箱" prop="email">
+                <el-input v-model="personalForm.email"></el-input>
+              </el-form-item>
+              <el-form-item label="昵称" prop="nickName" style="margin-top: 7px">
+                <el-input v-model="personalForm.nickName"></el-input>
+              </el-form-item>
+              <el-button class="editP" type="primary" @click="upUserInfo">修改</el-button>
+            </el-col>
+          </el-row>
+        </el-form-item>
+      </el-form>
+    </el-card>
 </template>
 
 <script>

@@ -146,8 +146,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.el-breadcrumb{
+  margin-bottom: -170px;
+}
 .gray-box {
-  overflow: hidden;
   background: #fff;
   border-color: rgba(0,0,0,.14);
   box-shadow: 0 3px 8px -6px rgba(0,0,0,.1);

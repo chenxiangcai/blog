@@ -275,7 +275,7 @@ export default {
   }
   .el-header{
     height: 50px!important;
-    background-color: skyblue;
+    background-color: #4CA1AF;
     display: flex;
     align-items: center;
     padding-left: 10px!important;

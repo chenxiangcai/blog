@@ -55,6 +55,10 @@ Vue.filter('dateFormat', dateTime => {
 
 // 定义全局路由拦截守卫
 router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
   axios.post('/admin/validate', {}).then(res => {
     // 普通路由 如果普通用户登录 存储用户信息
     if (res.data.status === 0) {

@@ -41,10 +41,10 @@
       </el-menu>
     </el-header>
     <!--主体区域-->
-    <div class="container">
+    <div class="container" style="  overflow: hidden;">
       <!--侧边栏-->
       <div :class="{aside:true,fix:showFlag,ds:displayFlag}" >
-       <div style="padding-left: 60%">
+       <div style="float: right">
          <div class="profile-info" v-if="userInfo.userInfo">
            <div>
              <template>
@@ -104,16 +104,14 @@
        </div>
       </div>
       <!--内容主体-->
-      <div class="main"  style="float: right">
-        <div style="margin-right: 200px">
+      <div class="main" >
           <transition name="fade-transform" mode="out-in" >
-            <router-view />
+            <router-view style="min-height: 1200px"></router-view>
           </transition>
-        </div>
+        <!--页脚-->
+        <Copyrights></Copyrights>
       </div>
     </div>
-    <!--页脚-->
-    <Copyrights></Copyrights>
   </el-container>
   </div>
 </template>
@@ -239,20 +237,22 @@ export default {
   .ds{
     display: none!important;
   }
-  display: inline-block;
   width: 100%;
   height: 100%;
   background-color: #ededed;
   .aside{
-    display: inline-block;
+    float: left;
     padding: 7px;
     margin-top: 70px;
-    width: 20%;
+    width: 500px;
   }
   .main{
-    margin-top: 70px;
+    margin-left: 520px;
+    margin-right: 200px;
+    height: 100%;
     padding: 7px;
-    width: 70%;
+    padding-top: 17px;
+    min-height: 1000px;margin-top: 60px
   }
 }
 .w-box{
@@ -260,9 +260,9 @@ export default {
 }
 .fix{
   position: fixed!important;
-  left: 0px;
-  top: -430px;
-  z-index: 998;
+  top: 0;
+  bottom: auto;
+  z-index: 1;
 }
 .aside{
   .profile-info{
@@ -339,7 +339,7 @@ export default {
   z-index: 999;
   background-color: #4CA1AF;
 }
-.el-container{
+.container{
   height: 100%;
   background-color: #ededed;
   .el-header{
@@ -350,17 +350,6 @@ export default {
       height: 100%;
       align-items: center;
     }
-  }
-  .el-main{
-    margin-left: 277px;
-    width: 1100px;
-    height: 100%;
-    padding: 7px;
-    padding-top: 17px;
-    min-height: 1000px;margin-top: 70px
-  }
-  .el-footer{
-    background-color: #FFF;
   }
 }
 </style>

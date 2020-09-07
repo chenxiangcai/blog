@@ -1,8 +1,8 @@
 <template>
   <div class="footer">
-    <div style="width: 1220px;">
+    <div style="width: 100%">
       <div class="siteInfo">
-        <ul class="c0">
+        <ul class="c0" style="padding-left: 100px">
           <h3 class="c1">服务支持</h3>
           <ul>
             <li class="c2"><a href="https://github.com/chenxiangcai/blog" class="c3">官方开源</a></li>
@@ -26,23 +26,7 @@
             <li class="c2"><a href="https://angular.cn/" class="c3">Angular</a></li>
           </ul>
         </ul>
-        <ul class="c0">
-          <h3 class="c1">服务支持</h3>
-          <ul>
-            <li class="c2"><a href="" class="c3">官方开源</a></li>
-            <li class="c2"><a href="" class="c3">项目前端</a></li>
-            <li class="c2"><a href="" class="c3">项目后端</a></li>
-          </ul>
-        </ul>
-        <ul class="c0">
-          <h3 class="c1">服务支持</h3>
-          <ul>
-            <li class="c2"><a href="" class="c3">官方开源</a></li>
-            <li class="c2"><a href="" class="c3">项目前端</a></li>
-            <li class="c2"><a href="" class="c3">项目后端</a></li>
-          </ul>
-        </ul>
-        <ul class="c0">
+        <ul class="c0" style="width: 50px">
           <h3 class="c1">关注我吧</h3>
           <ul>
             <li class="c2"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1690154855&site=qq&menu=yes" class="c3">腾讯QQ</a></li>
@@ -87,14 +71,14 @@ export default {
   border-top: 1px solid #e6e6e6;
   background: #fafafa;
   margin-top: 60px;
-  height: 350px;
+  height: 260px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .siteInfo{
   height: 100px;
-  padding: 50px 0 70px;
+  padding: 20px 0 50px;
   border-bottom: 1px solid #e6e6e6;
   position: relative;
 }
@@ -118,7 +102,7 @@ export default {
 }
 .c4{
   position: absolute;
-  right: 0;
+  right: 60px;
   overflow: hidden;
   line-height: 34px;
 }

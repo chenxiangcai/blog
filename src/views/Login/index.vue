@@ -3,7 +3,7 @@
     <div class="loginBox">
       <!--登录图片区域-->
       <div class="loginImg">
-        <img src="@/assets/images/logo.jpg" alt="">
+        <img src="@/assets/images/logo.png" alt="">
       </div>
       <!--登录表单区域-->
       <el-form :model="loginForm" :rules="loginFormRules" ref="loginFormRef" class="loginForm">
@@ -14,11 +14,11 @@
         <!--密码-->
         <el-form-item prop="password">
           <el-input
+            @keyup.enter.native="toLogin"
             placeholder="请输入密码"
             prefix-icon="iconfont icon-mima"
             v-model.trim="loginForm.password"
             show-password
-            @change="toLogin"
           >
           </el-input>
         </el-form-item>
@@ -96,8 +96,8 @@ export default {
   }
 
     .loginImg {
-      width: 137px;
-      height: 137px;
+      width: 125px;
+      height: 125px;
       border-radius: 50%;
       border: 1px solid #eee;
       padding: 10px;

@@ -1,26 +1,26 @@
 <template>
-  <el-card>
-    <el-form :model="pwdForm" status-icon :rules="pwdRules" ref="pwdForm" label-width="77px">
-      <el-row :gutter="20">
-        <el-col :span="8">
-          <el-form-item label="旧密码" prop="lastPwd">
-            <el-input type="password" v-model="pwdForm.lastPwd" autocomplete="off" ></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="新密码" prop="newPwd">
-            <el-input type="password" v-model="pwdForm.newPwd" autocomplete="off"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="8">
-          <el-form-item label="确认密码" prop="confirmPwd">
-            <el-input type="password" v-model="pwdForm.confirmPwd" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-button class="editP" type="primary" @click="upToChangePwd">修改</el-button>
-        </el-col>
-      </el-row>
-    </el-form>
-  </el-card>
+    <el-card style="margin-bottom: 245px">
+      <el-form :model="pwdForm" status-icon :rules="pwdRules" ref="pwdForm" label-width="77px">
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item label="旧密码" prop="lastPwd">
+              <el-input type="password" v-model="pwdForm.lastPwd" autocomplete="off" ></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="新密码" prop="newPwd">
+              <el-input type="password" v-model="pwdForm.newPwd" autocomplete="off"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="确认密码" prop="confirmPwd">
+              <el-input type="password" v-model="pwdForm.confirmPwd" autocomplete="off"></el-input>
+            </el-form-item>
+            <el-button class="editP" type="primary" @click="upToChangePwd">修改</el-button>
+          </el-col>
+        </el-row>
+      </el-form>
+    </el-card>
 </template>
 
 <script>

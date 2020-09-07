@@ -96,7 +96,7 @@
             </el-col>
           </el-row>
           <template>
-            <el-button type="primary" @click="editArticle"  v-if="this.editForm !==''">修改</el-button>
+            <el-button type="primary" @click="editArticle"  v-if="editForm._id">修改</el-button>
             <el-button type="primary" @click="addArticle" v-else>提交</el-button>
           </template>
           </el-col>
