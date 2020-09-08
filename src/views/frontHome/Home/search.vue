@@ -15,6 +15,8 @@
 <script>
 import Shelf from '@/components/Shelf'
 import postItem from '@/components/postItem'
+import { postSearch } from '@/api'
+
 export default {
   name: 'search',
   components: {
@@ -36,7 +38,7 @@ export default {
   },
   methods: {
     async getPosts () {
-      const { data: res } = await this.$http.get(`/posts/search/${this.$route.query.key}`)
+      const { data: res } = await this.$http.get(postSearch + `/${this.$route.query.key}`)
       console.log(res)
       this.postList = res
     }

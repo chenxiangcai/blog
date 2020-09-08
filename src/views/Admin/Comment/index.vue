@@ -96,6 +96,7 @@
 </template>
 
 <script>
+import { getAllComments } from '@/api'
 import BreadCrumb from '@/components/BreadCrumb'
 export default {
   name: 'Comments',
@@ -133,7 +134,7 @@ export default {
   },
   methods: {
     async getComments () {
-      const { data: res } = await this.$http.get('/comments', { params: this.params })
+      const { data: res } = await this.$http.get(getAllComments, { params: this.params })
       this.commentList = res.comment.records
       this.total = res.comment.total
     },
@@ -148,7 +149,7 @@ export default {
     },
     // 筛选请求
     async filtrate () {
-      const { data: res } = await this.$http.get('/comments', { params: this.filterParams })
+      const { data: res } = await this.$http.get(getAllComments, { params: this.filterParams })
       if (res.meta.status !== 200) this.$message.error(res.meta.msg)
       this.commentList = res.comment.records
       this.total = res.comment.total
@@ -178,9 +179,9 @@ export default {
         type: 'warning'
       }).catch(err => err)
       if (confirmResult !== 'confirm') return this.$message.info('已取消删除操作')
-      const { data: res } = await this.$http.delete(`/comments/${this.selectDelMany}`)
-      if (!res.message) return this.$message.error('删除文章失败')
-      this.$message.success('删除成功')
+      const { data: res } = await this.$http.delete(getAllComments + `/${this.selectDelMany}`)
+      if (!res.message) return this.$message.error('删除评论失败')
+      this.$message.success('删除评论成功')
       await this.getComments()
     },
     async deleteOne (row) {
@@ -191,9 +192,9 @@ export default {
         type: 'warning'
       }).catch(err => err)
       if (confirmResult !== 'confirm') return this.$message.info('已取消删除操作')
-      const { data: res } = await this.$http.delete(`/comments/${id}`)
-      if (!res._id) return this.$message.error('删除文章失败')
-      this.$message.success('删除文章成功')
+      const { data: res } = await this.$http.delete(getAllComments + `/${id}`)
+      if (!res._id) return this.$message.error('删除评论失败')
+      this.$message.success('删除评论成功')
       await this.getComments()
     },
     // 通过评论
@@ -202,8 +203,8 @@ export default {
       else row.state = 0
       const { _id } = row
       const { state } = row
-      const { data: res } = await this.$http.put(`/comments/${_id}`, { state })
-      if (res.nModified !== 1) return this.$message.error('评论审核失败')
+      const { data: res } = await this.$http.put(getAllComments + `/${_id}`, { state })
+      if (res.nModified !== 1) return this.$message.error('更改评论状态失败')
       this.$message.success('更改评论状态成功')
       await this.filtrate()
     }

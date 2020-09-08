@@ -32,6 +32,8 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
+import { getAllUsers } from '@/api'
+
 export default {
   name: 'UserDetail',
   computed: {
@@ -53,7 +55,7 @@ export default {
       }, 100)
     }
     return {
-      limit: 1,
+      limit: 2,
       fileList: [],
       personalForm: {
         avatar: '',
@@ -95,7 +97,7 @@ export default {
       if (!this.personalForm.avatar) this.personalForm.avatar = this.userInfo.userInfo.avatar
       this.personalForm.role = this.userInfo.userInfo.role
       this.personalForm.status = this.userInfo.userInfo.status
-      const { data: res } = await this.$http.put(`/users/${this.userInfo.userInfo._id}`, this.personalForm)
+      const { data: res } = await this.$http.put(getAllUsers + `/${this.userInfo.userInfo._id}`, this.personalForm)
       if (res.nModified !== 1) return this.$message.error('修改用户信息失败')
       this.$message.success('更新用户信息成功')
       /* 更新成功后更新vuex中用户信息 */

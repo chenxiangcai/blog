@@ -21,6 +21,8 @@
 <script>
 import Shelf from '@/components/Shelf'
 import postItem from '@/components/postItem'
+import { getAllCategory, getAllPosts, hotPostRecommend } from '@/api'
+
 export default {
   name: 'index',
   data () {
@@ -41,18 +43,18 @@ export default {
   },
   methods: {
     async getCateList () {
-      const { data: res } = await this.$http.get('/categories')
+      const { data: res } = await this.$http.get(getAllCategory)
       this.cateList = res
       this.cateList.filter((item) => {
         this.moduleList.push(item.title)
       })
     },
     async getAllPosts () {
-      const { data: res } = await this.$http.get('/posts')
+      const { data: res } = await this.$http.get(getAllPosts)
       this.postList = res.data.records
     },
     async getHotPosts () {
-      const { data: res } = await this.$http.get('/posts/recommend')
+      const { data: res } = await this.$http.get(hotPostRecommend)
       this.hotList = res
     }
   }

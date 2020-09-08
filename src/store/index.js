@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { staticPicHost, picUploadUrl } from '@/api'
 
 Vue.use(Vuex)
 
@@ -9,8 +10,8 @@ export default new Vuex.Store({
     userInfo: {},
     editForm: {},
     settings: {},
-    host: 'http://localhost',
-    upURL: 'http://localhost/upload'
+    host: staticPicHost,
+    upURL: picUploadUrl
   },
   mutations: {
     LOGIN (state, userInfo) {

@@ -20,6 +20,8 @@
 <script>
 import postItem from '@/components/postItem'
 import Shelf from '@/components/Shelf'
+import { getAllPosts } from '@/api'
+
 export default {
   name: 'allPosts',
   components: {
@@ -41,7 +43,7 @@ export default {
   },
   methods: {
     async getAllPosts () {
-      const { data: res } = await this.$http.get('/posts', { params: this.query })
+      const { data: res } = await this.$http.get(getAllPosts, { params: this.query })
       this.total = res.data.total
       this.postList = res.data.records
     },

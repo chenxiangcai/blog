@@ -119,6 +119,8 @@
 import { mapState, mapMutations } from 'vuex'
 import { setStore, getStore } from '@/utils/storage'
 import Copyrights from '@/common/Copyrights'
+import { setting, getAllCategory, postSearch, newPost, newComment } from '@/api'
+
 export default {
   name: 'Home',
   components: {
@@ -151,7 +153,7 @@ export default {
     ...mapMutations(['SETTINGS']),
     // 获取网站配置信息
     async getSetting () {
-      const { data: res } = await this.$http.get('/settings')
+      const { data: res } = await this.$http.get(setting)
       this.SETTINGS(res)
     },
     // 导航跳转
@@ -170,7 +172,7 @@ export default {
       this.$router.push({ name: 'login' })
     },
     async getCateList () {
-      const { data: res } = await this.$http.get('/categories')
+      const { data: res } = await this.$http.get(getAllCategory)
       this.cateList = res
     },
     // 导航栏文章分类请求
@@ -187,7 +189,7 @@ export default {
     async upSearchPost () {
       if (this.searchPost === '') return
       // 跳转前判断该文章是否存在
-      const { data: res } = await this.$http.get(`/posts/search/${this.searchPost}`)
+      const { data: res } = await this.$http.get(postSearch + `/${this.searchPost}`)
       if (res.length === 0) return this.$message.info('博主还没有写这篇文章喔...')
       // 存在即跳转 同时传递查询参数
       this.$router.push({ name: 'searchPost', query: { key: this.searchPost } })
@@ -195,7 +197,7 @@ export default {
     },
     // 获取最新文章
     async getNewPosts () {
-      const { data: res } = await this.$http.get('/posts/newest')
+      const { data: res } = await this.$http.get(newPost)
       console.log(res)
       this.newestPost = res
     },
@@ -205,7 +207,7 @@ export default {
     },
     // 获取最新评论
     async getNewComment () {
-      const { data: res } = await this.$http.get('/comments/new')
+      const { data: res } = await this.$http.get(newComment)
       this.commentList = res
     },
     toPost (id) {
@@ -216,11 +218,7 @@ export default {
       const left = document.documentElement.scrollLeft || document.body.scrollLeft
       if (top >= 600) {
         this.showFlag = true
-        if (left > 0) {
-          this.displayFlag = true
-        } else {
-          this.displayFlag = false
-        }
+        this.displayFlag = left > 0
       } else {
         this.showFlag = false
       }

@@ -75,6 +75,8 @@
 <script>
 import { getStore } from '@/utils/storage'
 import { mapState } from 'vuex'
+import { getAllPosts, getAllComments, postLike } from '@/api'
+
 export default {
   name: 'detailPost',
   data () {
@@ -107,7 +109,7 @@ export default {
   },
   methods: {
     async getPostDetails () {
-      const { data: res } = await this.$http.get(`/posts/${this.$route.query.id}`)
+      const { data: res } = await this.$http.get(getAllPosts + `/${this.$route.query.id}`)
       this.detailList = res.post
       this.commentList = res.comment
     },
@@ -124,7 +126,7 @@ export default {
     async upNewComment () {
       if (this.newComment.length === 0) return this.$message.error('请输入评论内容')
       if (!this.settings.review) this.state = 1
-      const { data: res } = await this.$http.post('/comments', {
+      const { data: res } = await this.$http.post(getAllComments, {
         content: this.newComment,
         post: this.detailList._id,
         state: this.state
@@ -137,7 +139,7 @@ export default {
     },
     // 点赞
     async upLike () {
-      const { data: res } = await this.$http.post(`/posts/like/${this.detailList._id}`)
+      const { data: res } = await this.$http.post(postLike + `/${this.detailList._id}`)
       if (!res.meta) return this.$message.error('点赞失败')
       this.$message.success('感谢支持,点赞成功')
     }

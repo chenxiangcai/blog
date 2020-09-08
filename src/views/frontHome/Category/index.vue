@@ -11,6 +11,8 @@
 <script>
 import postItem from '@/components/postItem'
 import Shelf from '@/components/Shelf'
+import { postCategory } from '@/api'
+
 export default {
   name: 'category',
   components: {
@@ -34,7 +36,7 @@ export default {
   },
   methods: {
     async getCatePosts () {
-      const { data: res } = await this.$http.get(`/posts/category/${this.$route.query.id}`)
+      const { data: res } = await this.$http.get(postCategory + `/${this.$route.query.id}`)
       this.postList = res
       this.title = res[0].category.title
     }

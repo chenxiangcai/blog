@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { updatePwd } from '@/api'
+
 export default {
   name: 'EditPwd',
   data () {
@@ -70,7 +72,7 @@ export default {
     upToChangePwd () {
       this.$refs.pwdForm.validate(async v => {
         if (!v) return
-        const { data: res } = await this.$http.put('/users/password', this.pwdForm)
+        const { data: res } = await this.$http.put(updatePwd, this.pwdForm)
         if (res.message !== '密码修改成功') return this.$message.error(res.message)
         this.$message.success(res.message)
         this.logout()
@@ -96,6 +98,6 @@ export default {
   }
 }
 .footer{
-  margin-top: 7;
+  margin-top: 7px;
 }
 </style>

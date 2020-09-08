@@ -247,6 +247,8 @@
 <script>
 import BreadCrumb from '@/components/BreadCrumb'
 import { mapState } from 'vuex'
+import { getAllUsers } from '@/api'
+
 export default {
   name: 'Users',
   computed: {
@@ -357,7 +359,7 @@ export default {
       this.getUserList()
     },
     async getUserList () {
-      const { data: res } = await this.$http.get('/users', { params: this.params })
+      const { data: res } = await this.$http.get(getAllUsers, { params: this.params })
       if (res.meta.status !== 200) return this.$message.error('获取用户列表失败')
       this.userList = res.user.records
       this.total = res.user.total
@@ -371,7 +373,7 @@ export default {
         type: 'warning'
       }).catch(err => err)
       if (confirmResult !== 'confirm') return this.$message.info('已取消删除操作')
-      const { data: res } = await this.$http.delete(`/users/${this.selectDelMany}`)
+      const { data: res } = await this.$http.delete(getAllUsers + `/${this.selectDelMany}`)
       if (!res.message) return this.$message.error('删除用户失败')
       this.$message.success('删除成功')
       await this.getUserList()
@@ -385,7 +387,7 @@ export default {
         type: 'warning'
       }).catch(err => err)
       if (confirmResult !== 'confirm') return this.$message.info('已取消删除操作')
-      const { data: res } = await this.$http.delete(`/users/${id}`)
+      const { data: res } = await this.$http.delete(getAllUsers + `/${id}`)
       console.log(res)
       if (!res) return this.$message.error('删除用户失败')
       this.$message.success('删除用户成功')
@@ -395,7 +397,7 @@ export default {
     upAddUser () {
       this.$refs.addForm.validate(async v => {
         if (!v) return
-        const { data: res } = await this.$http.post('/users', this.addForm)
+        const { data: res } = await this.$http.post(getAllUsers, this.addForm)
         if (!res._id) return this.$message.error(res.message)
         this.addDialogVisible = false
         this.$message.success('添加用户成功')
@@ -431,7 +433,7 @@ export default {
     async editUser (row) {
       /* this.editForm.avatar = row.avatar */
       const { _id } = row
-      const { data: res } = await this.$http.get(`/users/${_id}`)
+      const { data: res } = await this.$http.get(getAllUsers + `/${_id}`)
       this.editForm = res
       this.editForm.status = res.status.toString()
       // 判断当前用户是否有头像
@@ -445,7 +447,7 @@ export default {
       this.editDialogVisible = true
     },
     async upEditUser () {
-      const { data: res } = await this.$http.put(`/users/${this.editForm._id}`, this.editForm)
+      const { data: res } = await this.$http.put(getAllUsers + `/${this.editForm._id}`, this.editForm)
       if (res.nModified !== 1) return this.$message.error('用户信息编辑失败')
       this.editDialogVisible = false
       this.$message.success('用户信息更新成功')
@@ -471,7 +473,7 @@ export default {
     },
     // 筛选请求
     async filtrate () {
-      const { data: res } = await this.$http.get('/users', { params: this.filterParams })
+      const { data: res } = await this.$http.get(getAllUsers, { params: this.filterParams })
       if (res.meta.status !== 200) this.$message.error(res.meta.msg)
       this.userList = res.user.records
       this.total = res.user.total

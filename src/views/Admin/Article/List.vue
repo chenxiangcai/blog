@@ -132,6 +132,7 @@
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb'
+import { getAllPosts, getAllCategory } from '@/api'
 import { mapMutations } from 'vuex'
 import { setStore } from '@/utils/storage'
 export default {
@@ -176,14 +177,14 @@ export default {
   methods: {
     ...mapMutations(['EDITFORM']),
     async getArticleList () {
-      const { data: res } = await this.$http.get('/posts', { params: this.params })
+      const { data: res } = await this.$http.get(getAllPosts, { params: this.params })
       if (res.meta.status !== 200) this.$message.error(res.meta.msg)
       this.articleList = res.data.records
       this.total = res.data.total
       this.loading = false
     },
     async getCateList () {
-      const { data: res } = await this.$http.get('/categories')
+      const { data: res } = await this.$http.get(getAllCategory)
       this.cateList = res
     },
     // 复选框选择
@@ -203,7 +204,7 @@ export default {
         type: 'warning'
       }).catch(err => err)
       if (confirmResult !== 'confirm') return this.$message.info('已取消删除操作')
-      const { data: res } = await this.$http.delete(`/posts/${this.selectDelArt}`)
+      const { data: res } = await this.$http.delete(getAllPosts + `/${this.selectDelArt}`)
       if (!res) return this.$message.error('删除文章失败')
       this.$message.success('删除成功')
       await this.getArticleList()
@@ -237,7 +238,7 @@ export default {
     },
     // 筛选请求
     async filtrate () {
-      const { data: res } = await this.$http.get('/posts', { params: this.filterParams })
+      const { data: res } = await this.$http.get(getAllPosts, { params: this.filterParams })
       if (res.meta.status !== 200) this.$message.error(res.meta.msg)
       this.articleList = res.data.records
       this.total = res.data.total
@@ -245,7 +246,7 @@ export default {
     // 编辑文章
     async editArticle (row) {
       const id = row._id
-      const { data: res } = await this.$http.get(`/posts/${id}`)
+      const { data: res } = await this.$http.get(getAllPosts + `/${id}`)
       if (!res.post) return this.$message.error('数据获取失败')
       this.EDITFORM(res.post)
       setStore('activePath', 'add-article')
@@ -260,7 +261,7 @@ export default {
         type: 'warning'
       }).catch(err => err)
       if (confirmResult !== 'confirm') return this.$message.info('已取消删除操作')
-      const { data: res } = await this.$http.delete(`/posts/${id}`)
+      const { data: res } = await this.$http.delete(getAllPosts + `/${id}`)
       if (!res) return this.$message.error('删除文章失败')
       this.$message.success('删除文章成功')
       await this.getArticleList()

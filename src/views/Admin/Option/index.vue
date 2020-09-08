@@ -36,6 +36,7 @@
 <script>
 import BreadCrumb from '@/components/BreadCrumb'
 import { mapState } from 'vuex'
+import { setting } from '@/api'
 export default {
   name: 'Options',
   computed: {
@@ -72,7 +73,7 @@ export default {
   },
   methods: {
     async getOption () {
-      const { data: res } = await this.$http.get('/settings')
+      const { data: res } = await this.$http.get(setting)
       if (!res._id) return this.$message.error('获取网站设置信息失败')
       this.optForm = res
       if (this.fileList.length === 0) { this.fileList.push({ url: `${this.host}` + res.logo }) }
@@ -86,7 +87,7 @@ export default {
       this.optForm.logo = ''
     },
     async upOpt () {
-      const { data: res } = await this.$http.post('/settings', this.optForm)
+      const { data: res } = await this.$http.post(setting, this.optForm)
       if (!res._id) return this.$message.error('设置网站配置失败')
       this.$message.success('配置成功')
       await this.getOption()

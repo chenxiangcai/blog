@@ -36,14 +36,16 @@
 // 导入自定义工具
 import { setStore } from '@/utils/storage'
 import { mapMutations } from 'vuex'
+import { login } from '@/api'
+
 export default {
   name: 'Login',
   data () {
     return {
       // 登录表单
       loginForm: {
-        email: '111@qq.com', // 设置默认账号
-        password: '111'
+        email: '', // 设置默认账号
+        password: ''
       },
       // 表单验证规则
       loginFormRules: {
@@ -58,7 +60,7 @@ export default {
     toLogin () {
       this.$refs.loginFormRef.validate(async v => {
         if (!v) return
-        const { data: res } = await this.$http.post('/login', this.loginForm)
+        const { data: res } = await this.$http.post(login, this.loginForm)
         if (res.meta.status !== 200) return this.$message.error(res.meta.message)
         this.$message.success('登录成功')
         // token保存在sessionStorage 和vuex中

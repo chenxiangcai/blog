@@ -149,6 +149,8 @@
 import { getStore, setStore } from '@/utils/storage'
 import { mapState, mapMutations } from 'vuex'
 import moment from 'moment'
+import { updatePwd } from '@/api'
+
 export default {
   name: 'AdminHome',
   data () {
@@ -252,7 +254,7 @@ export default {
     upToChangePwd () {
       this.$refs.pwdForm.validate(async v => {
         if (!v) return
-        const { data: res } = await this.$http.put('/users/password', this.pwdForm)
+        const { data: res } = await this.$http.put(updatePwd, this.pwdForm)
         if (res.message !== '密码修改成功') return this.$message.error(res.message)
         this.$message.success(res.message)
         this.logout()

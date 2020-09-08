@@ -16,6 +16,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { commentCount, categoryCount, postCount, randomSentences } from '@/api'
 export default {
   name: 'Detail',
   computed: {
@@ -38,18 +39,18 @@ export default {
   },
   methods: {
     async getSlides () {
-      const { data: catNum } = await this.$http.get('/categories/count')
+      const { data: catNum } = await this.$http.get(categoryCount)
       this.catNum = catNum.categoryCount
-      const { data: postNum } = await this.$http.get('/posts/count')
+      const { data: postNum } = await this.$http.get(postCount)
       this.postNum = postNum.postCount
       this.draftNum = postNum.draftCount
-      const { data: commentNum } = await this.$http.get('/comments/count')
+      const { data: commentNum } = await this.$http.get(commentCount)
       this.commentNum = commentNum.commentCount
       this.toAllowNum = commentNum.toAllowCount
     },
     getWords () {
       setInterval(async () => {
-        const { data: res } = await this.$http.get('https://v1.hitokoto.cn')
+        const { data: res } = await this.$http.get(randomSentences)
         this.words = res.hitokoto
         this.from = res.from
       }, 5000)

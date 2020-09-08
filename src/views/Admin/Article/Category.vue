@@ -99,6 +99,7 @@
 </template>
 
 <script>
+import { getAllCategory } from '@/api'
 import BreadCrumb from '@/components/BreadCrumb'
 export default {
   name: 'article-category',
@@ -140,7 +141,7 @@ export default {
   },
   methods: {
     async getCateList () {
-      const { data: res } = await this.$http.get('/categories')
+      const { data: res } = await this.$http.get(getAllCategory)
       this.cateList = res
     },
     resetForm () {
@@ -149,7 +150,7 @@ export default {
     upCateForm () {
       this.$refs.cateForm.validate(async v => {
         if (!v) return
-        const { data: res } = await this.$http.post('/categories', this.cateForm)
+        const { data: res } = await this.$http.post(getAllCategory, this.cateForm)
         if (!res._id) return this.$message.error(res.message)
         this.addDialogVisible = false
         this.$message.success('添加分类成功')
@@ -159,14 +160,14 @@ export default {
     // 点击修改
     async editCate (row) {
       const { _id } = row
-      const { data: res } = await this.$http.get(`/categories/${_id}`)
+      const { data: res } = await this.$http.get(getAllCategory + `/${_id}`)
       this.editDialogVisible = true
       this.editCateForm = res
     },
     // 修改提交
     async modifyCateForm () {
       const { _id } = this.editCateForm
-      const { data: res } = await this.$http.put(`/categories/${_id}`, this.editCateForm)
+      const { data: res } = await this.$http.put(getAllCategory + `/${_id}`, this.editCateForm)
       if (!res.ok) return this.$message.error(res.message)
       this.editDialogVisible = false
       this.$message.success('更新分类成功')
@@ -181,7 +182,7 @@ export default {
       }).catch(err => err)
       if (confirmResult !== 'confirm') return this.$message.info('已取消删除操作')
       const { _id } = row
-      const { data: res } = await this.$http.delete(`/categories/${_id}`)
+      const { data: res } = await this.$http.delete(getAllCategory + `/${_id}`)
       if (res.message !== '删除成功') return this.$message.error(res.message)
       this.$message.success('删除分类成功')
       await this.getCateList()
@@ -203,7 +204,7 @@ export default {
         type: 'warning'
       }).catch(err => err)
       if (confirmResult !== 'confirm') return this.$message.info('已取消删除操作')
-      const { data: res } = await this.$http.delete(`/categories/${this.selectDelMany}`)
+      const { data: res } = await this.$http.delete(getAllCategory + `/${this.selectDelMany}`)
       if (!res) return this.$message.error('删除分类失败')
       this.$message.success('删除成功')
       await this.getCateList()

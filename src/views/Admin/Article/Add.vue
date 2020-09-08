@@ -14,26 +14,16 @@
         </el-col>
         <el-col :span="7" >
           <el-form-item label="文章封面">
-            <template>
-              <img
-                v-if="this.showImg"
-                :src="this.imageUrl + this.editForm.cover"
-                alt="这张照片被外星人拐走了..."
-                class="img"
-              >
-            </template>
             <el-upload
-              :limit="this.limit"
+              :limit="this.limits"
               :action="upURL"
               list-type="picture-card"
-              :on-preview="handlePictureCardPreview"
               :on-success="handleAvatarSuccess"
-              :on-remove="handleRemove">
+              :on-remove="handleRemove"
+              :file-list="fileList"
+            >
               <i class="el-icon-plus"></i>
             </el-upload>
-            <el-dialog :visible.sync="dialogVisible">
-              <img width="100%" :src="this.imageUrl" alt="">
-            </el-dialog>
           </el-form-item>
           <el-row :gutter="20">
             <el-col :span="12" >
@@ -109,14 +99,17 @@
 <script>
 import BreadCrumb from '@/components/BreadCrumb'
 import { setStore } from '@/utils/storage'
+import { getAllCategory, getAllPosts } from '@/api'
 import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'NewArticle',
   computed: {
-    ...mapState(['userInfo', 'editForm', 'upURL'])
+    ...mapState(['userInfo', 'editForm', 'upURL', 'host'])
   },
   data () {
     return {
+      limits: 2,
+      fileList: [],
       showImg: false,
       breadCrumbList: [{
         breOne: '首页',
@@ -132,7 +125,7 @@ export default {
         cover: '',
         createAt: ''
       },
-      imageUrl: 'http://localhost',
+      imageUrl: '',
       addOrEditFormRules: {
         title: [
           { required: true, message: '请输入文章标题', trigger: 'blur' },
@@ -171,12 +164,14 @@ export default {
   mounted () {
     this.getCateList()
     // 判断是新增页面还是编辑页面
+    // 编辑页面
     if (Object.keys(this.editForm).length !== 0) {
       this.addOrEditForm = this.editForm
       this.showImg = true
       // 设置下拉框回填值
       this.editFormCate = this.editForm.category._id
       this.editFormState = this.editForm.state
+      if (this.editForm.cover) this.fileList.push({ url: `${this.host}` + this.editForm.cover })
     }
   },
   components: {
@@ -188,11 +183,9 @@ export default {
       this.$refs.addOrEditForm.resetFields()
     },
     handleAvatarSuccess (file) {
-      // 设置图片要拼接的地址
-      /* this.imageUrl = 'http://localhost' */
-      this.imageUrl = this.imageUrl + file[0].file
+      this.fileList.shift()
+      this.fileList.push({ url: `${this.host}` + file[0].file })
       this.addOrEditForm.cover = file[0].file
-      this.showImg = false
     },
     handleRemove () {
       this.addOrEditForm.cover = ''
@@ -202,7 +195,7 @@ export default {
       this.dialogVisible = true
     },
     async getCateList () {
-      const { data: res } = await this.$http.get('/categories')
+      const { data: res } = await this.$http.get(getAllCategory)
       this.cateList = res
     },
     selectCate (id) {
@@ -217,7 +210,7 @@ export default {
       this.$refs.addOrEditForm.validate(async v => {
         if (!v) return
         this.addOrEditForm.author = this.userInfo._id
-        const { data: res } = await this.$http.post('/posts', this.addOrEditForm)
+        const { data: res } = await this.$http.post(getAllPosts, this.addOrEditForm)
         if (!res.meta) return this.$message.error(res.message)
         this.$message.success('新增文章成功')
         // 设置当前页面index位置
@@ -227,10 +220,10 @@ export default {
     },
     async editArticle () {
       const id = this.addOrEditForm._id
-      const { data: res } = await this.$http.put(`/posts/${id}`, this.addOrEditForm)
+      const { data: res } = await this.$http.put(getAllPosts + `/${id}`, this.addOrEditForm)
       if (!res.ok) return this.$message.error(res.message)
       this.$message.success('更新文章信息成功')
-      // 更新成功后清除store中editForm数据 解决图片路劲显示异常
+      // 更新成功后清除store中editForm数据 解决图片路径显示异常
       this.CLEARFORM()
       setStore('activePath', 'all-articles')
       this.$router.push({ name: 'allArticles' })
