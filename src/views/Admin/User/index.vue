@@ -448,7 +448,7 @@ export default {
     },
     async upEditUser () {
       const { data: res } = await this.$http.put(getAllUsers + `/${this.editForm._id}`, this.editForm)
-      if (res.nModified !== 1) return this.$message.error('用户信息编辑失败')
+      if (res.nModified !== 1) return this.$message.error('用户信息未更新')
       this.editDialogVisible = false
       this.$message.success('用户信息更新成功')
       await this.getUserList()
