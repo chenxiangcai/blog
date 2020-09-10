@@ -105,7 +105,7 @@ export default new VueRouter({
     {
       path: '/',
       name: 'adminHome',
-      redirect: { name: 'welcome' },
+      redirect: { name: 'detail' },
       component: () => import('@/views/Admin'),
       children: [
         {

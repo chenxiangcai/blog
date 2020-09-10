@@ -40,3 +40,5 @@ export const randomSentences = 'https://v1.hitokoto.cn'
 export const staticPicHost = 'http://localhost'
 // 图片上传路径
 export const picUploadUrl = 'http://localhost/upload'
+// axios根路径
+export const axiosPath = 'http://localhost:80'

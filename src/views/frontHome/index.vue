@@ -103,6 +103,7 @@
          </div>
        </div>
       </div>
+      <Player></Player>
       <!--内容主体-->
       <div class="main" >
           <transition name="fade-transform" mode="out-in" >

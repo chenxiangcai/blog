@@ -6,7 +6,8 @@ import './plugins/element.js'
 import store from './store'
 import VueLazyload from 'vue-lazyload'
 import moment from 'moment'
-
+import Player from 'zw-player'
+import { axiosPath } from '@/api'
 // 导入编辑控件样式
 import 'quill/dist/quill.core.css' // import styles
 import 'quill/dist/quill.snow.css' // for snow theme
@@ -18,6 +19,7 @@ import './assets/css/global.css'
 import './assets/fonts/iconfont.css'
 // 导入编辑控件
 import VueQuillEditor from 'vue-quill-editor'
+Vue.component('Player', Player)
 Vue.use(VueLazyload)
 Vue.use(VueLazyload, {
   preLoad: 1.3,
@@ -30,11 +32,15 @@ Vue.use(VueQuillEditor)
 // 挂载axios全局对象
 Vue.prototype.$http = axios
 // 设置axios默认请求地址前缀
-axios.defaults.baseURL = 'http://localhost:80'
+axios.defaults.baseURL = axiosPath
 // 配置axios请求头的token
 axios.interceptors.request.use(config => {
-  config.headers.Authorization = window.sessionStorage.getItem('token')
-  return config
+  console.log(config)
+  if (config.url.includes('3000')) return config
+  else {
+    config.headers.Authorization = window.sessionStorage.getItem('token')
+    return config
+  }
 })
 
 // 配置挂载时间格式化工具

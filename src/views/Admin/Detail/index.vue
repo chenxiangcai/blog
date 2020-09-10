@@ -80,7 +80,7 @@ export default {
   ul>li{
     position: relative;
     display: block;
-    padding: 10px 15px;
+    padding: 0 15px;
     margin-bottom: -1px;
     background-color: #ffffff;
     border: 1px solid #dddddd;
@@ -90,7 +90,7 @@ export default {
 .words{
   font-size: 40px;
   font-weight: 500;
-  font-family: 华文行楷;
+  font-family: 华文行楷!important;
   display: flex;
   justify-content: center;
   align-items:center;

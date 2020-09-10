@@ -8,8 +8,8 @@
       <!--登录表单区域-->
       <el-form :model="loginForm" :rules="loginFormRules" ref="loginFormRef" class="loginForm">
         <!--用户名-->
-        <el-form-item prop="username" >
-          <el-input placeholder="请输入用户名" autofocus v-model.trim="loginForm.email" prefix-icon="iconfont icon-denglu"></el-input>
+        <el-form-item prop="email" >
+          <el-input type="email" placeholder="请输入邮箱" autofocus v-model.trim="loginForm.email" prefix-icon="iconfont icon-denglu"></el-input>
         </el-form-item>
         <!--密码-->
         <el-form-item prop="password">
@@ -52,7 +52,7 @@ export default {
       },
       // 表单验证规则
       loginFormRules: {
-        nickName: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        email: [{ required: true, message: '请输入登录邮箱', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
       }
     }
@@ -63,6 +63,9 @@ export default {
     toLogin () {
       this.$refs.loginFormRef.validate(async v => {
         if (!v) return
+        // 小写转换
+        const lowerCase = this.loginForm.email.toLowerCase()
+        this.loginForm.email = lowerCase
         const { data: res } = await this.$http.post(login, this.loginForm)
         if (res.meta.status !== 200) return this.$message.error(res.meta.message)
         this.$message.success('登录成功')

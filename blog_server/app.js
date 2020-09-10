@@ -13,6 +13,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // 设置跨域和相应数据格式
 app.all('/*', function (req, res, next) {
+  /* res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', '*')
+  res.header('Access-Control-Allow-Headers', '*')
+  res.header('Access-Control-Request-Headers', '*') */
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With, mytoken')
   res.header('Access-Control-Allow-Headers', 'X-Requested-With, Authorization')

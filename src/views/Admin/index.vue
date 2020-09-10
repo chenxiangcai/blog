@@ -1,6 +1,7 @@
 <template>
   <el-container>
 <!--    侧边栏-->
+    <Player></Player>
     <el-aside :width="isCollapse? '64px':'200px'">
       <!--头像区域-->
         <el-popover
@@ -211,6 +212,7 @@ export default {
   },
   created () {
     this.activePath = getStore('activePath')
+    if (!this.activePath) this.activePath = 'detail'
     this.getTime()
     // this.activePath = window.sessionStorage.getItem('activePath')
   },
@@ -262,7 +264,7 @@ export default {
     },
     getTime () {
       setInterval(() => {
-        this.currentTime = moment().format('YYYY年MM月DD日 星期E kk:mm:ss')
+        this.currentTime = moment().format('YYYY年MM月DD日 星期 E kk:mm:ss')
       }, 1000)
     }
   }
