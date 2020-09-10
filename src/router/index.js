@@ -25,6 +25,13 @@ export default new VueRouter({
       meta: {
         title: '个人博客'
       }
+    }, {
+      path: '/register',
+      name: 'register',
+      component: () => import('@/views/Register'),
+      meta: {
+        title: '账号注册'
+      }
     },
     {
       path: '/home',

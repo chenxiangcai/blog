@@ -22,6 +22,9 @@
           >
           </el-input>
         </el-form-item>
+        <div class="register" @click="toRegister">
+          <span style="font-size: 12px;color: #666">还没有账号？点我</span><a href="javascript:;" style="color: #0c8ec3"> 注册.. </a>
+        </div>
         <!--按钮区域-->
         <el-form-item class="btn">
           <el-button type="primary" @click="toLogin">登录</el-button>
@@ -73,6 +76,9 @@ export default {
     // 重置表单
     resetLoginForm () {
       this.$refs.loginFormRef.resetFields()
+    },
+    toRegister () {
+      this.$router.push({ name: 'register' })
     }
   }
 }
@@ -82,7 +88,7 @@ export default {
 .loginContainer {
   width: 100%;
   height: 100%;
-  background-color: cadetblue;
+  background: linear-gradient(to bottom,#808080,#3fada8);
 }
 
   .loginBox {
@@ -91,7 +97,7 @@ export default {
     background-color: #fff;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 45%;
     transform: translate(-50%, -50%);
     border-radius: 7px;
     box-shadow: 0 0 7px #ddd;
@@ -125,10 +131,14 @@ export default {
       padding: 0 40px;
       box-sizing: border-box;
     }
-
       .btn {
         display: flex;
         justify-content: flex-end;
+      }
+      .register{
+        float: left;
+        padding-top:10px;
+        font-size: 13px;
       }
 
 </style>
