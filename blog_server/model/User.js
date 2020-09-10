@@ -39,13 +39,13 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User',userSchema);
 
 //初始化用户
-User.findOne({email:'cxc@qq.com'}).then( async result =>{
+User.findOne({email:'111@qq.com'}).then( async result =>{
     if(result == null){
         const salt = await bcrypt.genSalt(10);
-        const hashPassword = await bcrypt.hash('777',salt);
+        const hashPassword = await bcrypt.hash('111',salt);
         await User.create({
-            nickName: 'cxc',
-            email: 'cxc@qq.com',
+            nickName: '管1',
+            email: '111@qq.com',
             password: hashPassword,
             role: 'admin',
             status: 1

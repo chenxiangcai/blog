@@ -55,7 +55,7 @@ export default {
       limit: 2,
       optForm: {
         title: '',
-        comment: '',
+        comment: 'true',
         review: '',
         logo: ''
       },
@@ -74,7 +74,7 @@ export default {
   methods: {
     async getOption () {
       const { data: res } = await this.$http.get(setting)
-      if (!res._id) return this.$message.error('获取网站设置信息失败')
+      if (!res._id) return this.$message.info('暂时未获得网站配置')
       this.optForm = res
       if (this.fileList.length === 0) { this.fileList.push({ url: `${this.host}` + res.logo }) }
     },
