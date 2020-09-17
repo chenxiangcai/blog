@@ -2,16 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import axios from 'axios'
-import './plugins/element.js'
 import store from './store'
 import VueLazyload from 'vue-lazyload'
 import moment from 'moment'
 import Player from 'zw-player'
 import { axiosPath } from '@/api'
-// 导入编辑控件样式
-import 'quill/dist/quill.core.css' // import styles
-import 'quill/dist/quill.snow.css' // for snow theme
-import 'quill/dist/quill.bubble.css' // for bubble theme
 
 // 导入全样式
 import './assets/css/global.css'
@@ -35,7 +30,6 @@ Vue.prototype.$http = axios
 axios.defaults.baseURL = axiosPath
 // 配置axios请求头的token
 axios.interceptors.request.use(config => {
-  console.log(config)
   if (config.url.includes('3000')) return config
   else {
     config.headers.Authorization = window.sessionStorage.getItem('token')

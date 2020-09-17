@@ -14,6 +14,7 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="total">
     </el-pagination>
+    <copyrights></copyrights>
   </div>
 </template>
 
@@ -21,12 +22,13 @@
 import postItem from '@/components/postItem'
 import Shelf from '@/components/Shelf'
 import { getAllPosts } from '@/api'
-
+import Copyrights from '../../../common/Copyrights'
 export default {
   name: 'allPosts',
   components: {
     postItem,
-    Shelf
+    Shelf,
+    Copyrights
   },
   data () {
     return {

@@ -45,7 +45,8 @@
       </div>
     </div>
     <div class="copyright">
-      <h4 style="color: #757575">Copyright ©2020,  trylive</h4>
+        <h4 style="color: #757575">Copyright ©2020, Try </h4>
+      <h4>渝ICP备2020011105号</h4>
     </div>
   </div>
 </template>

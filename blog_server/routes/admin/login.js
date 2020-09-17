@@ -23,7 +23,8 @@ module.exports = async (req, res) => {
   }
 
   // 根据用户的身份进行返回 跳转不同的首页
-  if (user.role === 'admin') var path = { name: 'adminHome' }
+  var path = {}
+  if (user.role === 'admin') path = { name: 'adminHome' }
   else path = { name: 'home' }
 
   // 使用密钥对token加密生成 返回客户端

@@ -1,9 +1,11 @@
 const express = require('express')
+const compression = require('compression')
 const app = express()
 const path = require('path')
 /* const session = require('express-session') */
 const formidable = require('express-formidable')
 require('./model/connect')
+app.use(compression())
 app.use(express.static(path.join(__dirname, 'public')))
 /* app.use(session({
   secret: 'secret key',

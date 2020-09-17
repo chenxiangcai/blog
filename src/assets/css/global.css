@@ -4,6 +4,9 @@
     font-family: '微软雅黑'!important;
     box-sizing: initial;
 }
+.bbox{
+    right: 60px;
+}
 html,body,#app{
     height: 100%;
     margin: 0;

@@ -112,7 +112,7 @@ export default {
   width: 70%;
   margin: 70px auto 0;
   padding-top: 45px;
-  padding-bottom: 20px;
+  padding-bottom: 18px;
   .editP{
     margin-top: 47px;
     float: right;

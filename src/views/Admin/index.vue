@@ -140,7 +140,7 @@
       </el-header>
       <!--内容主体区-->
       <el-main>
-        <router-view/>
+        <router-view></router-view>
       </el-main>
     </el-container>
   </el-container>
@@ -153,7 +153,7 @@ import moment from 'moment'
 import { updatePwd } from '@/api'
 
 export default {
-  name: 'AdminHome',
+  name: 'aH',
   data () {
     var validatePass = (rule, value, callback) => {
       if (value === '') {

@@ -105,12 +105,10 @@
       </div>
       <Player></Player>
       <!--内容主体-->
-      <div class="main" >
+      <div class="main">
           <transition name="fade-transform" mode="out-in" >
-            <router-view style="min-height: 1200px"></router-view>
+            <router-view></router-view>
           </transition>
-        <!--页脚-->
-        <Copyrights></Copyrights>
       </div>
     </div>
   </el-container>
@@ -119,13 +117,13 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { setStore, getStore } from '@/utils/storage'
-import Copyrights from '@/common/Copyrights'
+
 import { setting, getAllCategory, postSearch, newPost, newComment } from '@/api'
 
 export default {
   name: 'Home',
   components: {
-    Copyrights
+
   },
   data () {
     return {

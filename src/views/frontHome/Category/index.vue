@@ -5,6 +5,7 @@
         <post-item v-for="i in postList" :key="i._id" :posts="i"></post-item>
       </div>
     </Shelf>
+    <copyrights></copyrights>
   </div>
 </template>
 
@@ -12,12 +13,13 @@
 import postItem from '@/components/postItem'
 import Shelf from '@/components/Shelf'
 import { postCategory } from '@/api'
-
+import Copyrights from '../../../common/Copyrights'
 export default {
   name: 'category',
   components: {
     postItem,
-    Shelf
+    Shelf,
+    Copyrights
   },
   data () {
     return {

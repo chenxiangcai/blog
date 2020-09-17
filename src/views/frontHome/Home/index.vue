@@ -15,6 +15,7 @@
         </Shelf>
       </section>
     </div>
+    <copyrights></copyrights>
   </div>
 </template>
 
@@ -22,9 +23,12 @@
 import Shelf from '@/components/Shelf'
 import postItem from '@/components/postItem'
 import { getAllCategory, getAllPosts, hotPostRecommend } from '@/api'
-
+import Copyrights from '../../../common/Copyrights'
 export default {
   name: 'index',
+  comments: {
+    Copyrights
+  },
   data () {
     return {
       postList: [],
@@ -33,6 +37,7 @@ export default {
     }
   },
   components: {
+    Copyrights,
     postItem,
     Shelf
   },
